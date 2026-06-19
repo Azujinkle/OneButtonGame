@@ -1,17 +1,20 @@
 extends Node2D
 
 var energy: int
+var rest: int
 var is_resting: bool
 var is_rem: bool
 
 const STARTING_ENERGY = 1800 # energy at the start of levels
 const AWAKE_ENERGY = -2 # energy lost per frame
 const REST_ENERGY = 3 # energy gained per frame while resting
+const REST_THRESHOLD = 30 # time in frames needed before properly resting
 const REM_THRESHOLD = 600 # energy needed to awaken if all energy is depleted
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	energy = STARTING_ENERGY
+	rest = 0
 	is_resting = false
 	is_rem = false
 
@@ -37,10 +40,16 @@ func _process(delta: float) -> void:
 
 # Close the player's eyes, fading out their sights before they recover energy.
 func close_eyes() -> void:
-	await $HUD.close_eyes()
-	is_resting = true
+	$HUD.close_eyes()
+	if rest >= REST_THRESHOLD:
+		is_resting = true
+	else:
+		rest += 1
 
 # Open the player's eyes, resuming energy depletion as they regain their sight.
 func open_eyes() -> void:
 	$HUD.open_eyes()
+	rest -= 1
+	if is_resting:
+		$HUD.flare_eyes()
 	is_resting = false

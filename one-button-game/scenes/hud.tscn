@@ -9,6 +9,21 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ahhtf")
 
+[node name="Flare" type="ColorRect" parent="." unique_id=1020017297]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1260.0
+offset_bottom = 700.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Fader" type="ColorRect" parent="." unique_id=162266564]
 modulate = Color(0, 0, 0, 0)
 layout_mode = 1
