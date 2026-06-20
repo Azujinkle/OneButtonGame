@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://b54mdno4igm2v"]
+
+[ext_resource type="Script" uid="uid://dwpbrqtyyi0il" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[node name="HUD" type="Control" unique_id=1632463552]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ahhtf")
+
+[node name="Flare" type="ColorRect" parent="." unique_id=1020017297]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1260.0
+offset_bottom = 700.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fader" type="ColorRect" parent="." unique_id=162266564]
+modulate = Color(0, 0, 0, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1260.0
+offset_bottom = 700.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Energy" type="Control" parent="." unique_id=2135857015]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Bar" type="ProgressBar" parent="Energy" unique_id=1029614526]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_right = 320.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Status" type="Label" parent="Energy" unique_id=2064859105]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 70.0
+grow_horizontal = 2
+horizontal_alignment = 1
