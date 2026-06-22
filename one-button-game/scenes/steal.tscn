@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://vhhupwvkqjkp"]
+
+[ext_resource type="Script" uid="uid://c3akkvurltwi5" path="res://scripts/steal.gd" id="1_1yohy"]
+[ext_resource type="AudioStream" uid="uid://b2350smq85kt" path="res://zip.mp3" id="2_op5vu"]
+
+[node name="Steal" type="Node" unique_id=1099598146]
+script = ExtResource("1_1yohy")
+
+[node name="Zipper" type="AudioStreamPlayer" parent="." unique_id=112637131]
+stream = ExtResource("2_op5vu")
+volume_db = -6.0
+
+[node name="Interval" type="Timer" parent="." unique_id=1584310456]
+one_shot = true
+
+[connection signal="timeout" from="Interval" to="." method="_on_interval_timeout"]

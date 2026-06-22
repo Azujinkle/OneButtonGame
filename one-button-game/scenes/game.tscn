@@ -2,8 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://b54mdno4igm2v" path="res://scenes/hud.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://cofk64dqp3x6c" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://vhhupwvkqjkp" path="res://scenes/steal.tscn" id="3_lnu2h"]
 
 [node name="Game" type="Node2D" unique_id=619202715]
 script = ExtResource("1_yqjtg")
 
 [node name="HUD" parent="." unique_id=1632463552 instance=ExtResource("1_uwrxv")]
+
+[node name="Steal" parent="." unique_id=1099598146 instance=ExtResource("3_lnu2h")]
+
+[node name="Frequency" type="Timer" parent="." unique_id=448992538]
+one_shot = true
+
+[connection signal="steal" from="Steal" to="." method="_on_steal_signal"]
+[connection signal="timeout" from="Frequency" to="." method="_on_frequency_timeout"]

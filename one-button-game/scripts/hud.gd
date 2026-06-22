@@ -6,7 +6,7 @@ func _ready() -> void:
 	$Fader.size = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 # Darken the screen to simulate closed eyes.
@@ -27,6 +27,7 @@ func flare_eyes() -> void:
 
 # Updates energy bar and status.
 func update_energy(value: int, is_resting: bool, is_rem: bool) -> void:
+	@warning_ignore("integer_division") # keep the percentage simple
 	$Energy/Bar.value = value/18
 	if is_rem:
 		$Energy/Status.text = "Tired..."
