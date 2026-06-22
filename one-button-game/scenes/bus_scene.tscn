@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://iuclld5p4k8d"]
+
+[ext_resource type="Script" uid="uid://bjslycpl283dh" path="res://scripts/backpack.gd" id="1_backpack"]
+[ext_resource type="Script" path="res://scripts/thief_hands.gd" id="2_hands"]
+[ext_resource type="Script" path="res://scripts/steal_event.gd" id="3_steal_event"]
+
+[node name="busScene" type="Node2D" unique_id=840647726]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1346616861]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.12156863, 1, 1, 1)
+
+[node name="Backpack" type="Node2D" parent="." unique_id=1319432197]
+position = Vector2(900, 430)
+script = ExtResource("1_backpack")
+
+[node name="ClosedVisual" type="Polygon2D" parent="Backpack" unique_id=36664336]
+color = Color(0.117647, 0.25098, 0.45098, 1)
+polygon = PackedVector2Array(-110, -90, 70, -90, 110, 100, -110, 100)
+
+[node name="OpenVisual" type="Polygon2D" parent="Backpack" unique_id=1818257166]
+color = Color(0.45098, 0.156863, 0.117647, 1)
+polygon = PackedVector2Array(-110, -90, 70, -90, 110, 100, -110, 100)
+
+[node name="Opening" type="Polygon2D" parent="Backpack/OpenVisual" unique_id=495306863]
+color = Color(0.0352941, 0.0352941, 0.0470588, 1)
+polygon = PackedVector2Array(-78, -68, 48, -68, 68, -38, -88, -38)
+
+[node name="ThiefHands" type="Node2D" parent="."]
+position = Vector2(1380, 390)
+script = ExtResource("2_hands")
+
+[node name="HandVisual" type="Polygon2D" parent="ThiefHands"]
+polygon = PackedVector2Array(-100, -24, 150, -24, 150, 24, -100, 24, -125, 10, -125, -10)
+color = Color(0.760784, 0.52549, 0.352941, 1)
+
+[node name="SleeveVisual" type="Polygon2D" parent="ThiefHands"]
+polygon = PackedVector2Array(20, -34, 180, -34, 180, 34, 20, 34)
+color = Color(0.168627, 0.137255, 0.270588, 1)
+
+[node name="StealEvent" type="Node" parent="."]
+script = ExtResource("3_steal_event")
+
+[node name="WarningSound" type="AudioStreamPlayer" parent="StealEvent"]

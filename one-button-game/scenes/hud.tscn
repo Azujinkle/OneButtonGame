@@ -38,6 +38,7 @@ offset_right = 1260.0
 offset_bottom = 700.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.039215688, 0.047058824, 0.043137256, 1)
 
 [node name="Energy" type="Control" parent="." unique_id=2135857015]
 layout_mode = 1
@@ -66,3 +67,31 @@ offset_right = 40.0
 offset_bottom = 70.0
 grow_horizontal = 2
 horizontal_alignment = 1
+
+[node name="ResultOverlay" type="ColorRect" parent="."]
+visible = false
+z_index = 10
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.0588235, 0.0470588, 0.0705882, 0.82)
+
+[node name="Message" type="Label" parent="ResultOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -45.0
+offset_right = 320.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.819608, 0.819608, 1)
+theme_override_font_sizes/font_size = 36
+text = "Your backpack was stolen!"
+horizontal_alignment = 1
+vertical_alignment = 1
