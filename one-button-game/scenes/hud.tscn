@@ -66,6 +66,7 @@ offset_top = 40.0
 offset_right = 40.0
 offset_bottom = 70.0
 grow_horizontal = 2
+text = "Status"
 horizontal_alignment = 1
 
 [node name="ResultOverlay" type="ColorRect" parent="."]

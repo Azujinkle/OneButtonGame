@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://iuclld5p4k8d"]
+[gd_scene load_steps=5 format=3 uid="uid://iuclld5p4k8d"]
 
 [ext_resource type="Script" uid="uid://bjslycpl283dh" path="res://scripts/backpack.gd" id="1_backpack"]
 [ext_resource type="Script" path="res://scripts/thief_hands.gd" id="2_hands"]
 [ext_resource type="Script" path="res://scripts/steal_event.gd" id="3_steal_event"]
+[ext_resource type="AudioStream" uid="uid://b2350smq85kt" path="res://zip.mp3" id="4_zip"]
 
 [node name="busScene" type="Node2D" unique_id=840647726]
 
@@ -43,3 +44,5 @@ color = Color(0.168627, 0.137255, 0.270588, 1)
 script = ExtResource("3_steal_event")
 
 [node name="WarningSound" type="AudioStreamPlayer" parent="StealEvent"]
+stream = ExtResource("4_zip")
+volume_db = -6.0
