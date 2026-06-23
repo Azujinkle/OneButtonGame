@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://6y6yg5jxpnn8"]
+
+[ext_resource type="Script" uid="uid://dsrek0jqrnj1t" path="res://scripts/title.gd" id="1_4ignj"]
+[ext_resource type="Texture2D" uid="uid://4hiip3kdb0xd" path="res://art/menus/Bus-Stop.png" id="2_b3w7a"]
+[ext_resource type="Texture2D" uid="uid://b5y3lardfloov" path="res://art/menus/Play_Idle.png" id="3_4rr2b"]
+[ext_resource type="Texture2D" uid="uid://cxx6khmx7f1k0" path="res://art/menus/Play_Pressed.png" id="4_b3w7a"]
+[ext_resource type="Texture2D" uid="uid://dbcds7bu35dib" path="res://art/menus/Options_Pressed.png" id="4_yql1r"]
+[ext_resource type="Texture2D" uid="uid://dvn43goluqv4y" path="res://art/menus/Play_Hover.png" id="5_ia1n6"]
+[ext_resource type="Texture2D" uid="uid://dfomy2fmmdlx6" path="res://art/menus/Options_Idle.png" id="6_81wt4"]
+[ext_resource type="Texture2D" uid="uid://clf73ct1f7dh3" path="res://art/menus/Options_Hover.png" id="8_kcc3o"]
+[ext_resource type="Texture2D" uid="uid://x1k0c6yiyywc" path="res://art/menus/Credits_Idle.png" id="9_6rcc6"]
+[ext_resource type="Texture2D" uid="uid://dqkie3pgapqh4" path="res://art/menus/Credits_Pressed.png" id="10_ah8jo"]
+[ext_resource type="Texture2D" uid="uid://cp6gq8sp578x4" path="res://art/menus/Credits_Hover.png" id="11_blk4q"]
+[ext_resource type="Texture2D" uid="uid://b8fhr4s6phwpk" path="res://art/menus/Exit_Idle.png" id="12_8magm"]
+[ext_resource type="Texture2D" uid="uid://g1awnm4iik5b" path="res://art/menus/Exit_Pressed.png" id="13_fgbvm"]
+[ext_resource type="Texture2D" uid="uid://cb7ih3b5ldpgj" path="res://art/menus/Exit_Hover.png" id="14_vjr5h"]
+
+[node name="Title" type="Control" unique_id=1861971730]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = 35.0
+offset_right = 3.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ignj")
+
+[node name="Menu" type="Control" parent="." unique_id=815913827]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="Bus Stop" type="Sprite2D" parent="Menu" unique_id=1616305927]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_b3w7a")
+
+[node name="Start" type="TextureButton" parent="Menu" unique_id=304835342]
+layout_mode = 0
+offset_left = 47.0
+offset_top = -130.0
+offset_right = 205.0
+offset_bottom = -24.0
+texture_normal = ExtResource("3_4rr2b")
+texture_pressed = ExtResource("4_b3w7a")
+texture_hover = ExtResource("5_ia1n6")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Options" type="TextureButton" parent="Menu" unique_id=1246099134]
+layout_mode = 0
+offset_left = 227.0
+offset_top = -130.0
+offset_right = 385.0
+offset_bottom = -24.0
+texture_normal = ExtResource("6_81wt4")
+texture_pressed = ExtResource("4_yql1r")
+texture_hover = ExtResource("8_kcc3o")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Credits" type="TextureButton" parent="Menu" unique_id=764186398]
+layout_mode = 0
+offset_left = 47.0
+offset_top = -4.0
+offset_right = 205.0
+offset_bottom = 102.0
+texture_normal = ExtResource("9_6rcc6")
+texture_pressed = ExtResource("10_ah8jo")
+texture_hover = ExtResource("11_blk4q")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Exit" type="TextureButton" parent="Menu" unique_id=194809025]
+layout_mode = 0
+offset_left = 228.0
+offset_top = -4.0
+offset_right = 386.0
+offset_bottom = 102.0
+texture_normal = ExtResource("12_8magm")
+texture_pressed = ExtResource("13_fgbvm")
+texture_hover = ExtResource("14_vjr5h")
+ignore_texture_size = true
+stretch_mode = 5
