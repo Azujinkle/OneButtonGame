@@ -2,8 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://b54mdno4igm2v" path="res://scenes/hud.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://cofk64dqp3x6c" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://iuclld5p4k8d" path="res://scenes/bus_scene.tscn" id="2_lnu2h"]
 
 [node name="Game" type="Node2D" unique_id=619202715]
 script = ExtResource("1_yqjtg")
 
-[node name="HUD" parent="." unique_id=1632463552 instance=ExtResource("1_uwrxv")]
+[node name="busScene" parent="." unique_id=840647726 instance=ExtResource("2_lnu2h")]
+
+[node name="HUDlayer" type="CanvasLayer" parent="." unique_id=443681947]
+
+[node name="HUD" parent="HUDlayer" unique_id=1632463552 instance=ExtResource("1_uwrxv")]
