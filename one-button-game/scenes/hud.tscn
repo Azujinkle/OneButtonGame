@@ -69,6 +69,56 @@ grow_horizontal = 2
 text = "Status"
 horizontal_alignment = 1
 
+[node name="LevelInfo" type="Control" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Instruction" type="Label" parent="LevelInfo"]
+layout_mode = 0
+offset_left = 330.0
+offset_top = 90.0
+offset_right = 950.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 24
+text = "Hold SPACE to sleep and start Level One"
+horizontal_alignment = 1
+
+[node name="Timer" type="Label" parent="LevelInfo"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 250.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 20
+text = "Bus ride: 30.0 s"
+
+[node name="Rest" type="Label" parent="LevelInfo"]
+layout_mode = 0
+offset_left = 1030.0
+offset_top = 24.0
+offset_right = 1260.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 20
+text = "Rest: 0.0 / 12.0 s"
+horizontal_alignment = 2
+
+[node name="Subtitle" type="Label" parent="LevelInfo"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 630.0
+offset_right = 1090.0
+offset_bottom = 685.0
+theme_override_colors/font_color = Color(0.08, 0.08, 0.1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = "Protect your laptop and get enough rest."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ResultOverlay" type="ColorRect" parent="."]
 visible = false
 z_index = 10

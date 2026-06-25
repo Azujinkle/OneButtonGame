@@ -1,17 +1,21 @@
 extends Node
 
 signal warning_started
+signal response_window_started
 signal steal_prevented
 signal steal_succeeded
 
 enum State {
 	IDLE,
 	APPROACHING,
+	RESPONSE_WINDOW,
 	COMPLETE,
 }
 
 # Keep the hand visible briefly when the event starts while the player is awake.
 @export var awake_retreat_delay := 0.35
+@export var response_window := 4.0
+@export var close_delay := 2.0
 
 @onready var backpack = $"../Backpack"
 @onready var thief_hands = $"../ThiefHands"
@@ -31,11 +35,9 @@ func start_event(player_is_awake: bool) -> void:
 
 	self.player_is_awake = player_is_awake
 
-	# The approach animation itself is the player's response window.
+	# First show the four-second approach; the zipper starts the response window.
 	state = State.APPROACHING
 	warning_started.emit()
-	if warning_sound.stream:
-		warning_sound.play()
 	thief_hands.move_to_backpack()
 
 	# An awake player sees the approaching hand, so it retreats after a short beat.
@@ -45,7 +47,7 @@ func start_event(player_is_awake: bool) -> void:
 
 func player_opened_eyes() -> void:
 	player_is_awake = true
-	if state != State.APPROACHING:
+	if state != State.APPROACHING and state != State.RESPONSE_WINDOW:
 		return
 
 	_prevent_steal()
@@ -53,14 +55,6 @@ func player_opened_eyes() -> void:
 
 func player_closed_eyes() -> void:
 	player_is_awake = false
-
-	# Restart a completed, prevented event when the player goes back to sleep.
-	if state == State.COMPLETE and not backpack.is_open:
-		reset_event()
-
-	# Closing the eyes before the tutorial timer expires starts the event now.
-	if state == State.IDLE:
-		start_event(false)
 
 
 func _retreat_from_awake_player() -> void:
@@ -74,19 +68,47 @@ func _prevent_steal() -> void:
 	state = State.COMPLETE
 	thief_hands.retreat()
 	steal_prevented.emit()
+	_close_and_reset_after_delay()
+
+
+func _close_and_reset_after_delay() -> void:
+	await get_tree().create_timer(close_delay).timeout
+	if backpack.is_open:
+		if warning_sound.stream:
+			warning_sound.play()
+		backpack.close_zip()
+	thief_hands.reset_position()
+	state = State.IDLE
 
 
 func _on_hand_reached_backpack() -> void:
 	if state != State.APPROACHING:
 		return
 
-	# Reaching the backpack closes the response window and completes the steal.
-	backpack.open_zip()
+	# Opening the backpack starts a separate four-second response window.
+	state = State.RESPONSE_WINDOW
+	if warning_sound.stream:
+		warning_sound.play()
+	backpack.open_with_item()
+	response_window_started.emit()
+
+	await get_tree().create_timer(response_window).timeout
+	if state != State.RESPONSE_WINDOW:
+		return
+
+	# Transfer the laptop to the hand, leave the backpack empty, then escape.
+	backpack.remove_contents()
+	thief_hands.take_laptop()
 	state = State.COMPLETE
 	steal_succeeded.emit()
+	thief_hands.retreat()
 
 
 func reset_event() -> void:
 	state = State.IDLE
 	backpack.close_zip()
 	thief_hands.reset_position()
+
+
+func is_available() -> bool:
+	return state == State.IDLE

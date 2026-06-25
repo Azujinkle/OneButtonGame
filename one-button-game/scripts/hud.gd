@@ -30,9 +30,8 @@ func flare_eyes() -> void:
 	tween.tween_property($Flare, "modulate:a", 0.0, 0.2)
 
 # Updates energy bar and status.
-func update_energy(value: int, is_resting: bool, is_rem: bool) -> void:
-	@warning_ignore("integer_division") # keep the percentage simple
-	$Energy/Bar.value = value/18
+func update_energy(value: float, is_resting: bool, is_rem: bool) -> void:
+	$Energy/Bar.value = value / 18.0
 	if is_rem:
 		$Energy/Status.text = "Tired..."
 	elif is_resting:
@@ -41,7 +40,30 @@ func update_energy(value: int, is_resting: bool, is_rem: bool) -> void:
 		$Energy/Status.text = "Awake"
 
 
-# Display a terminal overlay after the player discovers the stolen backpack.
-func show_lose_message(message: String) -> void:
+# Display the Level One prompt before its timer begins.
+func show_level_intro() -> void:
+	$LevelInfo/Instruction.text = "Hold SPACE to sleep and start Level One"
+	$LevelInfo/Subtitle.text = "Protect your laptop and get enough rest."
+
+
+func show_instruction(message: String) -> void:
+	$LevelInfo/Instruction.text = message
+
+
+func update_level(elapsed: float, duration: float, rested: float, required: float) -> void:
+	var time_left := maxf(duration - elapsed, 0.0)
+	$LevelInfo/Timer.text = "Bus ride: %.1f s" % time_left
+	$LevelInfo/Rest.text = "Rest: %.1f / %.1f s" % [rested, required]
+
+
+func show_subtitle(message: String) -> void:
+	$LevelInfo/Subtitle.text = message
+
+
+func show_result(message: String, success: bool) -> void:
 	$ResultOverlay/Message.text = message
+	if success:
+		$ResultOverlay/Message.modulate = Color(0.75, 1.0, 0.78)
+	else:
+		$ResultOverlay/Message.modulate = Color(1.0, 0.75, 0.75)
 	$ResultOverlay.visible = true
