@@ -3,16 +3,19 @@ extends Node2D
 signal reached_backpack
 signal finished_retreating
 
-@export var hidden_position := Vector2(1380.0, 390.0)
-@export var backpack_position := Vector2(1000.0, 390.0)
-@export var steal_duration := 0.7
+@export var hidden_position := Vector2(1650.0, 410.0)
+@export var backpack_position := Vector2(1180.0, 410.0)
+@export var steal_duration := 4.0
 @export var retreat_duration := 0.4
 
 var movement_tween: Tween
 
+@onready var stolen_laptop: CanvasItem = $StolenLaptop
+
 
 func _ready() -> void:
 	position = hidden_position
+	stolen_laptop.visible = false
 
 
 func move_to_backpack() -> void:
@@ -43,9 +46,14 @@ func retreat() -> void:
 	movement_tween.tween_callback(finished_retreating.emit)
 
 
+func take_laptop() -> void:
+	stolen_laptop.visible = true
+
+
 func reset_position() -> void:
 	_stop_movement()
 	position = hidden_position
+	stolen_laptop.visible = false
 
 
 func _stop_movement() -> void:
