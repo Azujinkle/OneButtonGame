@@ -15,14 +15,23 @@ run/main_scene="uid://xemv6pom1jif"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Settings="*uid://btexi05vto8up"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [dotnet]
 
 project/assembly_name="OneButtonGame"
+
+[gui]
+
+theme/custom_font="uid://w7xiocuuy6aa"
 
 [input]
 

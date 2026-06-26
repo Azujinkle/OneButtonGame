@@ -13,6 +13,7 @@ enum LevelState {
 @onready var hud = $HUDlayer/HUD
 @onready var steal_event = $busScene/StealEvent
 @onready var backpack = $busScene/Backpack
+@onready var pause = $HUDlayer/PauseOptions
 
 var energy: float
 var rest: float
@@ -21,7 +22,6 @@ var is_rem: bool
 var eyes_are_closed: bool
 var level_state := LevelState.WAITING_TO_START
 var level_elapsed := 0.0
-var rested_time := 0.0
 var next_event_index := 0
 var current_encounter := 0
 var zipper_hint_shown := false
@@ -32,8 +32,8 @@ const AWAKE_ENERGY_PER_SECOND := -60.0
 const REST_ENERGY_PER_SECOND := 90.0
 const REST_THRESHOLD := 0.5 # Seconds required before closed eyes count as rest.
 const REM_THRESHOLD := 600.0
+const REQUIRED_REST := 600.0
 const LEVEL_DURATION := 30.0
-const REQUIRED_REST_TIME := 12.0
 const STEAL_EVENT_TIMES := [7.0, 17.0]
 
 # Called when the node enters the scene tree for the first time.
@@ -48,7 +48,7 @@ func _ready() -> void:
 	steal_event.steal_prevented.connect(_on_steal_prevented)
 	steal_event.response_window_started.connect(_on_response_window_started)
 	hud.show_level_intro()
-	hud.update_level(level_elapsed, LEVEL_DURATION, rested_time, REQUIRED_REST_TIME)
+	hud.update_level(level_elapsed, LEVEL_DURATION, REQUIRED_REST, MAX_ENERGY)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -60,10 +60,13 @@ func _process(delta: float) -> void:
 
 	if is_rem and energy > REM_THRESHOLD:
 		is_rem = false
-
-	var should_close_eyes := is_rem or Input.is_action_pressed("close")
-	if should_close_eyes != eyes_are_closed:
-		set_eyes_closed(should_close_eyes)
+		
+	if !Settings.toggle:
+		var should_close_eyes := is_rem or Input.is_action_pressed("close")
+		if should_close_eyes != eyes_are_closed:
+			set_eyes_closed(should_close_eyes)
+	elif Settings.toggle and Input.is_action_just_pressed("close"):
+			set_eyes_closed(!eyes_are_closed)
 
 	if level_state != LevelState.RUNNING:
 		hud.update_energy(energy, false, is_rem)
@@ -73,22 +76,19 @@ func _process(delta: float) -> void:
 		rest = minf(rest + delta, REST_THRESHOLD)
 		is_resting = rest >= REST_THRESHOLD
 	else:
-		rest = maxf(rest - delta, 0.0)
+		rest = 0
 		is_resting = false
 
 	energy += AWAKE_ENERGY_PER_SECOND * delta
 	if is_resting:
 		energy += REST_ENERGY_PER_SECOND * delta
-		# Forced REM restores energy but does not satisfy the level's rest goal.
-		if not is_rem and Input.is_action_pressed("close"):
-			rested_time += delta
 	energy = clampf(energy, 0.0, MAX_ENERGY)
 	if energy <= 0.0:
 		is_rem = true
 
 	level_elapsed += delta
 	_try_start_scheduled_event()
-	hud.update_level(level_elapsed, LEVEL_DURATION, rested_time, REQUIRED_REST_TIME)
+	hud.update_level(level_elapsed, LEVEL_DURATION, REQUIRED_REST, MAX_ENERGY)
 	hud.update_energy(energy, is_resting, is_rem)
 
 	if level_elapsed >= LEVEL_DURATION:
@@ -172,9 +172,20 @@ func _finish_level() -> void:
 		return
 
 	hud.show_subtitle("Bus Driver: We are arriving at The Business District.")
-	if rested_time >= REQUIRED_REST_TIME:
+	if energy >= REQUIRED_REST:
 		level_state = LevelState.WON
 		hud.show_result("Level One Complete!\nYou protected the laptop and got enough rest.", true)
 	else:
 		level_state = LevelState.LOST_NOT_RESTED
 		hud.show_result("Game Over\nYou didn't rest enough.", false)
+
+
+func _on_volume_change() -> void:
+	pass
+	# TODO: change volume of any audio players
+	#	recommended formula: volume_db = linear_to_db(value/10.0)
+
+
+func _on_pause() -> void:
+	get_tree().paused = true
+	pause.show()

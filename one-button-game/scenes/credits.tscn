@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://g1awnm4iik5b" path="res://art/menus/Exit_Pressed.png" id="11_4t8yx"]
 [ext_resource type="Texture2D" uid="uid://cb7ih3b5ldpgj" path="res://art/menus/Exit_Hover.png" id="12_5hxgf"]
 
-[node name="PauseOptions" type="Control" unique_id=200214706]
+[node name="Credits" type="Control" unique_id=200214706]
 layout_mode = 3
 anchors_preset = 0
 

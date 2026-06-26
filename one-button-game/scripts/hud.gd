@@ -1,13 +1,19 @@
 extends Control
 
+var threshold: float
+signal pause
+
 # A partially transparent test value lets us inspect events while "asleep".
 # Change this to 1.0 once the steal flow and audio cues are finalized.
 const CLOSED_EYE_ALPHA = 0.7
+const RESTED_COLOR = Color("e96a0e")
+const TIRED_COLOR = Color("a92a0e")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Fader.custom_minimum_size = get_viewport_rect().size
 	$Fader.size = get_viewport_rect().size
+	threshold = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -38,6 +44,12 @@ func update_energy(value: float, is_resting: bool, is_rem: bool) -> void:
 		$Energy/Status.text = "Resting"
 	else:
 		$Energy/Status.text = "Awake"
+	var stylebox = $Energy/Bar.get_theme_stylebox("fill").duplicate()
+	if value >= threshold: 
+		stylebox.bg_color = RESTED_COLOR
+	else:
+		stylebox.bg_color = TIRED_COLOR
+	$Energy/Bar.add_theme_stylebox_override("fill", stylebox)
 
 
 # Display the Level One prompt before its timer begins.
@@ -50,11 +62,12 @@ func show_instruction(message: String) -> void:
 	$LevelInfo/Instruction.text = message
 
 
-func update_level(elapsed: float, duration: float, rested: float, required: float) -> void:
+func update_level(elapsed: float, duration: float, required: float, maximum: float) -> void:
 	var time_left := maxf(duration - elapsed, 0.0)
 	$LevelInfo/Timer.text = "Bus ride: %.1f s" % time_left
-	$LevelInfo/Rest.text = "Rest: %.1f / %.1f s" % [rested, required]
-
+	threshold = required
+	var displacement = $Energy/Bar.size.x * required / maximum - $Energy/Marker.size.x / 2.0
+	$Energy/Marker.position = Vector2($Energy/Bar.position.x + displacement, -7)
 
 func show_subtitle(message: String) -> void:
 	$LevelInfo/Subtitle.text = message
@@ -67,3 +80,7 @@ func show_result(message: String, success: bool) -> void:
 	else:
 		$ResultOverlay/Message.modulate = Color(1.0, 0.75, 0.75)
 	$ResultOverlay.visible = true
+
+
+func _on_pause_pressed() -> void:
+	pause.emit()
