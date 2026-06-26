@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://b54mdno4igm2v"]
 
 [ext_resource type="Script" uid="uid://dwpbrqtyyi0il" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="Texture2D" uid="uid://be43u4aawiylj" path="res://art/gameHud/Energy_Bar.png" id="2_oo0fn"]
+[ext_resource type="Texture2D" uid="uid://6d81o4af1a06" path="res://art/gameHud/Rested_Marker.png" id="3_5ysmq"]
+[ext_resource type="Texture2D" uid="uid://dn4dajbhby2sy" path="res://art/gameHud/Pause_Idle.png" id="4_047uy"]
+[ext_resource type="Texture2D" uid="uid://bp507fgjw68cm" path="res://art/gameHud/Pause_Pressed.png" id="5_5pdws"]
+[ext_resource type="Texture2D" uid="uid://cvo1qihunvtds" path="res://art/gameHud/Pause_Hover.png" id="6_hd3ao"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ysmq"]
+bg_color = Color(0.84705883, 0.972549, 0.98039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fi6k"]
+bg_color = Color(0.9137255, 0.41568628, 0.05490196, 1)
 
 [node name="HUD" type="Control" unique_id=1632463552]
 layout_mode = 3
@@ -43,8 +54,9 @@ color = Color(0.039215688, 0.047058824, 0.043137256, 1)
 [node name="Energy" type="Control" parent="." unique_id=2135857015]
 layout_mode = 1
 anchors_preset = 0
+offset_top = 15.0
 offset_right = 1280.0
-offset_bottom = 720.0
+offset_bottom = 735.0
 
 [node name="Bar" type="ProgressBar" parent="Energy" unique_id=1029614526]
 layout_mode = 1
@@ -55,6 +67,9 @@ offset_left = -320.0
 offset_right = 320.0
 offset_bottom = 40.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_5ysmq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6fi6k")
 
 [node name="Status" type="Label" parent="Energy" unique_id=2064859105]
 layout_mode = 1
@@ -62,30 +77,49 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -40.0
-offset_top = 40.0
+offset_top = 70.0
 offset_right = 40.0
-offset_bottom = 70.0
+offset_bottom = 99.99999
 grow_horizontal = 2
 text = "Status"
 horizontal_alignment = 1
 
-[node name="LevelInfo" type="Control" parent="."]
+[node name="Marker" type="TextureRect" parent="Energy" unique_id=548036357]
 layout_mode = 0
+offset_left = 657.0
+offset_top = -7.0
+offset_right = 757.0
+offset_bottom = 68.0
+texture = ExtResource("3_5ysmq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Frame" type="TextureRect" parent="Energy" unique_id=352381321]
+layout_mode = 0
+offset_left = 216.0
+offset_top = -27.0
+offset_right = 1072.0
+offset_bottom = 69.0
+texture = ExtResource("2_oo0fn")
+expand_mode = 1
+
+[node name="LevelInfo" type="Control" parent="." unique_id=329928442]
+anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 
-[node name="Instruction" type="Label" parent="LevelInfo"]
+[node name="Instruction" type="Label" parent="LevelInfo" unique_id=486211308]
 layout_mode = 0
 offset_left = 330.0
-offset_top = 90.0
+offset_top = 120.0
 offset_right = 950.0
-offset_bottom = 130.0
+offset_bottom = 160.0
 theme_override_font_sizes/font_size = 24
 text = "Hold SPACE to sleep and start Level One"
 horizontal_alignment = 1
 
-[node name="Timer" type="Label" parent="LevelInfo"]
+[node name="Timer" type="Label" parent="LevelInfo" unique_id=1385727089]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
@@ -94,17 +128,7 @@ offset_bottom = 56.0
 theme_override_font_sizes/font_size = 20
 text = "Bus ride: 30.0 s"
 
-[node name="Rest" type="Label" parent="LevelInfo"]
-layout_mode = 0
-offset_left = 1030.0
-offset_top = 24.0
-offset_right = 1260.0
-offset_bottom = 56.0
-theme_override_font_sizes/font_size = 20
-text = "Rest: 0.0 / 12.0 s"
-horizontal_alignment = 2
-
-[node name="Subtitle" type="Label" parent="LevelInfo"]
+[node name="Subtitle" type="Label" parent="LevelInfo" unique_id=1376145700]
 layout_mode = 0
 offset_left = 190.0
 offset_top = 630.0
@@ -119,7 +143,7 @@ text = "Protect your laptop and get enough rest."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ResultOverlay" type="ColorRect" parent="."]
+[node name="ResultOverlay" type="ColorRect" parent="." unique_id=838963690]
 visible = false
 z_index = 10
 layout_mode = 0
@@ -128,7 +152,7 @@ offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0.0588235, 0.0470588, 0.0705882, 0.82)
 
-[node name="Message" type="Label" parent="ResultOverlay"]
+[node name="Message" type="Label" parent="ResultOverlay" unique_id=47060814]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -146,3 +170,19 @@ theme_override_font_sizes/font_size = 36
 text = "Your backpack was stolen!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Pause" type="TextureButton" parent="." unique_id=1026230523]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 540.0
+offset_right = 181.0
+offset_bottom = 720.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("4_047uy")
+texture_pressed = ExtResource("5_5pdws")
+texture_hover = ExtResource("6_hd3ao")
+ignore_texture_size = true
+stretch_mode = 4
+
+[connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
