@@ -125,7 +125,8 @@ func lose_from_steal() -> void:
 		return
 
 	level_state = LevelState.LOST_STOLEN
-	hud.show_result("Game Over\nYour laptop was stolen.", false)
+	$HUDlayer/HUD/Pause.disabled = true
+	hud.show_result("Game Over\nYour laptop was stolen.\n\"What do you MEAN your\nlaptop was stolen!?\"", false)
 
 
 func _on_steal_succeeded() -> void:
@@ -170,20 +171,20 @@ func _try_start_scheduled_event() -> void:
 func _finish_level() -> void:
 	if level_state != LevelState.RUNNING:
 		return
-
+	$HUDlayer/HUD/Pause.disabled = true
 	hud.show_subtitle("Bus Driver: We are arriving at The Business District.")
 	if energy >= REQUIRED_REST:
 		level_state = LevelState.WON
 		hud.show_result("Level One Complete!\nYou protected the laptop and got enough rest.", true)
 	else:
 		level_state = LevelState.LOST_NOT_RESTED
-		hud.show_result("Game Over\nYou didn't rest enough.", false)
+		hud.show_result("Game Over\nYou didn't rest enough.\n\"No sleeping on the job!\"", false)
 
 
 func _on_volume_change() -> void:
-	pass
-	# TODO: change volume of any audio players
-	#	recommended formula: volume_db = linear_to_db(value/10.0)
+	var value = Settings.volume/10.0
+	$busScene/StealEvent/WarningSound.volume_db = linear_to_db(value) - 4.0
+	# TODO: change volume of any other audio players
 
 
 func _on_pause() -> void:

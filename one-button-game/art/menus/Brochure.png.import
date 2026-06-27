@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw0jv1t5g7v2f"
-path="res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"
+uid="uid://cqwksot86xknh"
+path="res://.godot/imported/Brochure.png-60fe550e2a83bb2f1366ec9a5aa53598.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/menus/Return_Idle.png"
-dest_files=["res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"]
+source_file="res://art/menus/Brochure.png"
+dest_files=["res://.godot/imported/Brochure.png-60fe550e2a83bb2f1366ec9a5aa53598.ctex"]
 
 [params]
 

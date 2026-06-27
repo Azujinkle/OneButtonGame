@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw0jv1t5g7v2f"
-path="res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"
+uid="uid://c82f7oje8h6c8"
+path="res://.godot/imported/AlarmClock-6AM-Tues-Alarm.png-988a0790ad204d2402313dda44f7d543.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/menus/Return_Idle.png"
-dest_files=["res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"]
+source_file="res://art/menus/AlarmClock-6AM-Tues-Alarm.png"
+dest_files=["res://.godot/imported/AlarmClock-6AM-Tues-Alarm.png-988a0790ad204d2402313dda44f7d543.ctex"]
 
 [params]
 

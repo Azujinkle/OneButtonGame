@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw0jv1t5g7v2f"
-path="res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"
+uid="uid://b47fdfgalh4np"
+path="res://.godot/imported/Angry-Man.png-4a2ddb8e61c65a52b88f71ff37dcce4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/menus/Return_Idle.png"
-dest_files=["res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"]
+source_file="res://art/gameHud/Angry-Man.png"
+dest_files=["res://.godot/imported/Angry-Man.png-4a2ddb8e61c65a52b88f71ff37dcce4d.ctex"]
 
 [params]
 

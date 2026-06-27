@@ -76,3 +76,12 @@ func _on_toggle_toggled(toggled_on: bool) -> void:
 func _on_return_pressed() -> void:
 	get_tree().paused = false
 	hide()
+
+
+func _on_exit_menu_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
+
+
+func _on_exit_desktop_pressed() -> void:
+	get_tree().quit()

@@ -4,8 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://be43u4aawiylj" path="res://art/gameHud/Energy_Bar.png" id="2_oo0fn"]
 [ext_resource type="Texture2D" uid="uid://6d81o4af1a06" path="res://art/gameHud/Rested_Marker.png" id="3_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://dn4dajbhby2sy" path="res://art/gameHud/Pause_Idle.png" id="4_047uy"]
+[ext_resource type="Texture2D" uid="uid://b47fdfgalh4np" path="res://art/gameHud/Angry-Man.png" id="4_mphia"]
+[ext_resource type="Texture2D" uid="uid://1ohlqstso6nd" path="res://art/gameHud/Retry_Idle.png" id="5_0m4u7"]
 [ext_resource type="Texture2D" uid="uid://bp507fgjw68cm" path="res://art/gameHud/Pause_Pressed.png" id="5_5pdws"]
+[ext_resource type="Texture2D" uid="uid://dndamnhexa3q0" path="res://art/gameHud/Retry_Pressed.png" id="6_apjy4"]
 [ext_resource type="Texture2D" uid="uid://cvo1qihunvtds" path="res://art/gameHud/Pause_Hover.png" id="6_hd3ao"]
+[ext_resource type="Texture2D" uid="uid://ckk2wty1rkejw" path="res://art/gameHud/Retry_Hover.png" id="7_5n1hp"]
+[ext_resource type="Texture2D" uid="uid://d2qf6yltleeop" path="res://art/gameHud/Continue_Idle.png" id="8_5n1hp"]
+[ext_resource type="Texture2D" uid="uid://bxjifos48fdao" path="res://art/gameHud/Continue_Pressed.png" id="9_eld54"]
+[ext_resource type="Texture2D" uid="uid://cy8tnpv5hhpdo" path="res://art/gameHud/Continue_Hover.png" id="10_3swnk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ysmq"]
 bg_color = Color(0.84705883, 0.972549, 0.98039216, 1)
@@ -144,13 +151,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ResultOverlay" type="ColorRect" parent="." unique_id=838963690]
-visible = false
 z_index = 10
-layout_mode = 0
+layout_mode = 1
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0.0588235, 0.0470588, 0.0705882, 0.82)
+
+[node name="AngryMan" type="TextureRect" parent="ResultOverlay" unique_id=951589922]
+layout_mode = 0
+offset_left = -19.0
+offset_top = -149.0
+offset_right = 1884.0
+offset_bottom = 715.0
+texture = ExtResource("4_mphia")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Message" type="Label" parent="ResultOverlay" unique_id=47060814]
 layout_mode = 1
@@ -159,10 +175,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -45.0
-offset_right = 320.0
-offset_bottom = 45.0
+offset_left = -279.5
+offset_top = -104.5
+offset_right = 279.5
+offset_bottom = 104.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0.819608, 0.819608, 1)
@@ -170,6 +186,34 @@ theme_override_font_sizes/font_size = 36
 text = "Your backpack was stolen!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Retry" type="TextureButton" parent="ResultOverlay" unique_id=1125837580]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 418.0
+offset_right = 502.0
+offset_bottom = 647.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("5_0m4u7")
+texture_pressed = ExtResource("6_apjy4")
+texture_hover = ExtResource("7_5n1hp")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Continue" type="TextureButton" parent="ResultOverlay" unique_id=35520866]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 418.0
+offset_right = 789.0
+offset_bottom = 647.0
+mouse_default_cursor_shape = 2
+action_mode = 0
+texture_normal = ExtResource("8_5n1hp")
+texture_pressed = ExtResource("9_eld54")
+texture_hover = ExtResource("10_3swnk")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="Pause" type="TextureButton" parent="." unique_id=1026230523]
 layout_mode = 0
@@ -185,4 +229,6 @@ texture_hover = ExtResource("6_hd3ao")
 ignore_texture_size = true
 stretch_mode = 4
 
+[connection signal="pressed" from="ResultOverlay/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="ResultOverlay/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]

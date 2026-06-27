@@ -14,8 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://b8fhr4s6phwpk" path="res://art/menus/Exit_Idle.png" id="12_8magm"]
 [ext_resource type="Texture2D" uid="uid://g1awnm4iik5b" path="res://art/menus/Exit_Pressed.png" id="13_fgbvm"]
 [ext_resource type="Texture2D" uid="uid://cb7ih3b5ldpgj" path="res://art/menus/Exit_Hover.png" id="14_vjr5h"]
+[ext_resource type="PackedScene" uid="uid://dr81sixhaydn5" path="res://scenes/pause_options.tscn" id="15_kcc3o"]
+[ext_resource type="PackedScene" uid="uid://63ln3dw8h8ne" path="res://scenes/credits.tscn" id="16_6rcc6"]
 
 [node name="Title" type="Control" unique_id=1861971730]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -88,3 +91,20 @@ texture_pressed = ExtResource("13_fgbvm")
 texture_hover = ExtResource("14_vjr5h")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="PopupLayer" type="CanvasLayer" parent="." unique_id=1235227456]
+
+[node name="PauseOptions" parent="PopupLayer" unique_id=200214706 instance=ExtResource("15_kcc3o")]
+process_mode = 2
+visible = false
+
+[node name="Credits" parent="PopupLayer" unique_id=62019509 instance=ExtResource("16_6rcc6")]
+process_mode = 2
+visible = false
+
+[connection signal="pressed" from="Menu/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Menu/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Menu/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Menu/Exit" to="." method="_on_exit_pressed"]
+[connection signal="visibility_changed" from="PopupLayer/PauseOptions" to="." method="_on_pause"]
+[connection signal="visibility_changed" from="PopupLayer/Credits" to="." method="_on_pause"]

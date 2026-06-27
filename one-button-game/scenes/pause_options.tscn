@@ -1,9 +1,16 @@
 [gd_scene format=3 uid="uid://dr81sixhaydn5"]
 
 [ext_resource type="Script" uid="uid://ce15ymavp0yrw" path="res://scripts/pause.gd" id="1_o8yhq"]
-[ext_resource type="Texture2D" uid="uid://dotfg0ai66jwi" path="res://art/menus/Return_Idle.png" id="1_olqx5"]
+[ext_resource type="Texture2D" uid="uid://dw0jv1t5g7v2f" path="res://art/menus/Return_Idle.png" id="1_olqx5"]
 [ext_resource type="Texture2D" uid="uid://fx3n37ijnqbw" path="res://art/menus/Return_Pressed.png" id="2_o8yhq"]
+[ext_resource type="Texture2D" uid="uid://cqwksot86xknh" path="res://art/menus/Brochure.png" id="2_u8deo"]
 [ext_resource type="Texture2D" uid="uid://c5ttxdsmbmj7m" path="res://art/menus/Return_Hover.png" id="3_u8deo"]
+[ext_resource type="Texture2D" uid="uid://cpqfakii1eahm" path="res://art/menus/Exit_Title_Idle.png" id="6_vk2aa"]
+[ext_resource type="Texture2D" uid="uid://3mphe4uoavrq" path="res://art/menus/Exit_Title_Pressed.png" id="7_5kqq2"]
+[ext_resource type="Texture2D" uid="uid://bljfp7ymt2da0" path="res://art/menus/Exit_Title_Hover.png" id="8_6v6ej"]
+[ext_resource type="Texture2D" uid="uid://kpo0kfinn3ph" path="res://art/menus/Exit_Desktop_Idle.png" id="9_k17pv"]
+[ext_resource type="Texture2D" uid="uid://dd1j5r8sk2ef0" path="res://art/menus/Exit_Desktop_Pressed.png" id="10_bwgd4"]
+[ext_resource type="Texture2D" uid="uid://eexh154ccxnr" path="res://art/menus/Exit_Desktop_Hover.png" id="11_xvqiv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8yhq"]
 bg_color = Color(0, 0, 0, 1)
@@ -20,37 +27,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o8yhq")
 
-[node name="TitleVersion" type="Control" parent="." unique_id=42250757]
+[node name="Darken" type="ColorRect" parent="." unique_id=482792823]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 50.0
-offset_right = 20.0
-offset_bottom = 90.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.73333335)
 
-[node name="Return" type="TextureButton" parent="TitleVersion" unique_id=291267606]
-layout_mode = 0
-offset_left = -254.0
-offset_top = -183.0
-offset_right = -96.0
-offset_bottom = -77.0
-texture_normal = ExtResource("1_olqx5")
-texture_pressed = ExtResource("2_o8yhq")
-texture_hover = ExtResource("3_u8deo")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="PauseVersion" type="Control" parent="." unique_id=146019139]
-anchors_preset = 0
-offset_top = 70.0
-offset_right = 40.0
-offset_bottom = 110.0
+[node name="Brochure" type="TextureRect" parent="." unique_id=319478582]
+layout_mode = 1
+offset_left = -5.0
+offset_top = 31.0
+offset_right = 1274.0
+offset_bottom = 754.0
+texture = ExtResource("2_u8deo")
+expand_mode = 1
 
 [node name="Menu" type="Control" parent="." unique_id=932271298]
 layout_mode = 1
@@ -59,20 +52,56 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -290.0
-offset_right = -640.0
-offset_bottom = -290.0
+offset_left = -517.0
+offset_top = -306.0
+offset_right = -477.0
+offset_bottom = -266.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Return" type="TextureButton" parent="Menu" unique_id=291267606]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 100.0
+offset_right = 504.0
+offset_bottom = 206.0
+texture_normal = ExtResource("1_olqx5")
+texture_pressed = ExtResource("2_o8yhq")
+texture_hover = ExtResource("3_u8deo")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ExitMenu" type="TextureButton" parent="Menu" unique_id=1028644550]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 220.0
+offset_right = 504.0
+offset_bottom = 326.0
+texture_normal = ExtResource("6_vk2aa")
+texture_pressed = ExtResource("7_5kqq2")
+texture_hover = ExtResource("8_6v6ej")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ExitDesktop" type="TextureButton" parent="Menu" unique_id=1655135754]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 340.0
+offset_right = 504.0
+offset_bottom = 446.0
+texture_normal = ExtResource("9_k17pv")
+texture_pressed = ExtResource("10_bwgd4")
+texture_hover = ExtResource("11_xvqiv")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="Volume" type="Label" parent="Menu" unique_id=1203486383]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 154.0
-offset_right = 667.0
-offset_bottom = 177.0
-rotation = -0.17453292
+offset_left = 592.44037
+offset_top = 135.0
+offset_right = 666.44037
+offset_bottom = 163.0
+rotation = 0.017453292
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Volume"
@@ -83,17 +112,18 @@ offset_left = 740.0
 offset_top = 145.0
 offset_right = 900.0
 offset_bottom = 161.0
+rotation = 0.034906585
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_o8yhq")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_mac6d")
 max_value = 10.0
 
 [node name="Display" type="Label" parent="Menu" unique_id=198116007]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 240.0
-offset_right = 683.0
-offset_bottom = 267.0
-rotation = -0.17453292
+offset_left = 592.44037
+offset_top = 221.0
+offset_right = 675.44037
+offset_bottom = 249.0
+rotation = 0.017453292
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Display"
@@ -104,6 +134,7 @@ offset_left = 772.0
 offset_top = 200.0
 offset_right = 872.0
 offset_bottom = 264.0
+rotation = 0.034906585
 
 [node name="Windowed" type="Button" parent="Menu/DisplayOption" unique_id=2049089724]
 layout_mode = 2
@@ -118,11 +149,11 @@ text = "Fullscreen"
 
 [node name="Control" type="Label" parent="Menu" unique_id=1577093876]
 layout_mode = 0
-offset_left = 600.0
-offset_top = 330.0
-offset_right = 685.0
-offset_bottom = 357.0
-rotation = -0.17453292
+offset_left = 592.44037
+offset_top = 311.0
+offset_right = 677.44037
+offset_bottom = 339.0
+rotation = 0.017453292
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Control"
@@ -133,6 +164,7 @@ offset_left = 772.0
 offset_top = 296.0
 offset_right = 872.0
 offset_bottom = 360.0
+rotation = 0.034906585
 
 [node name="Hold" type="Button" parent="Menu/ControlOption" unique_id=787324204]
 layout_mode = 2
@@ -145,7 +177,9 @@ layout_mode = 2
 toggle_mode = true
 text = "Toggle"
 
-[connection signal="pressed" from="TitleVersion/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="Menu/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="Menu/ExitMenu" to="." method="_on_exit_menu_pressed"]
+[connection signal="pressed" from="Menu/ExitDesktop" to="." method="_on_exit_desktop_pressed"]
 [connection signal="value_changed" from="Menu/Slider" to="." method="_on_slider_value_changed"]
 [connection signal="toggled" from="Menu/DisplayOption/Windowed" to="." method="_on_windowed_toggled"]
 [connection signal="toggled" from="Menu/DisplayOption/Fullscreen" to="." method="_on_fullscreen_toggled"]
