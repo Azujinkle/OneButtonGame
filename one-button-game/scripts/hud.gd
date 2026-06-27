@@ -13,6 +13,7 @@ const TIRED_COLOR = Color("a92a0e")
 func _ready() -> void:
 	$Fader.custom_minimum_size = get_viewport_rect().size
 	$Fader.size = get_viewport_rect().size
+	$ResultOverlay.visible = false
 	threshold = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,11 +77,29 @@ func show_subtitle(message: String) -> void:
 func show_result(message: String, success: bool) -> void:
 	$ResultOverlay/Message.text = message
 	if success:
+		$ResultOverlay/Message.position = Vector2(360.5, 255.5)
 		$ResultOverlay/Message.modulate = Color(0.75, 1.0, 0.78)
+		$ResultOverlay/AngryMan.visible = false
+		$ResultOverlay/Retry.visible = false
+		$ResultOverlay/Continue.visible = true
 	else:
+		$ResultOverlay/Message.position = Vector2(80, 220)
 		$ResultOverlay/Message.modulate = Color(1.0, 0.75, 0.75)
+		$ResultOverlay/AngryMan.visible = true
+		$ResultOverlay/Retry.visible = true
+		$ResultOverlay/Continue.visible = false
 	$ResultOverlay.visible = true
 
 
 func _on_pause_pressed() -> void:
 	pause.emit()
+
+
+func _on_retry_pressed() -> void:
+	# TODO: change to properly reload current level
+	$ResultOverlay.visible = false
+	get_tree().reload_current_scene()
+
+
+func _on_continue_pressed() -> void:
+	pass # Replace with function body.

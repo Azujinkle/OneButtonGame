@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw0jv1t5g7v2f"
-path="res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"
+uid="uid://dr4vp341tc8hj"
+path="res://.godot/imported/Gameover_Popup_Container.png-bc1035b084a597ecb757ac4c51959073.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/menus/Return_Idle.png"
-dest_files=["res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"]
+source_file="res://art/gameHud/Gameover_Popup_Container.png"
+dest_files=["res://.godot/imported/Gameover_Popup_Container.png-bc1035b084a597ecb757ac4c51959073.ctex"]
 
 [params]
 

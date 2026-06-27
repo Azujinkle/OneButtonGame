@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw0jv1t5g7v2f"
-path="res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"
+uid="uid://dndamnhexa3q0"
+path="res://.godot/imported/Retry_Pressed.png-e8cbbb1068ab38aceb53be8dc30df0e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/menus/Return_Idle.png"
-dest_files=["res://.godot/imported/Return_Idle.png-25ca01f1c75eea2b363dc95bac3db291.ctex"]
+source_file="res://art/gameHud/Retry_Pressed.png"
+dest_files=["res://.godot/imported/Retry_Pressed.png-e8cbbb1068ab38aceb53be8dc30df0e0.ctex"]
 
 [params]
 
