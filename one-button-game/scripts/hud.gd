@@ -1,12 +1,10 @@
 extends Control
 
 var threshold: float
+var closed_eye_alpha := 0.7
 signal pause
 signal continue_pressed
 
-# A partially transparent test value lets us inspect events while "asleep".
-# Change this to 1.0 once the steal flow and audio cues are finalized.
-const CLOSED_EYE_ALPHA = 0.7
 const RESTED_COLOR = Color("e96a0e")
 const TIRED_COLOR = Color("a92a0e")
 const MAX_ENERGY_VALUE = 1800.0
@@ -25,7 +23,7 @@ func _process(_delta: float) -> void:
 # Darken the screen to simulate closed eyes.
 func close_eyes() -> void:
 	var tween: Tween = create_tween()
-	tween.tween_property($Fader, "modulate:a", CLOSED_EYE_ALPHA, 0.2)
+	tween.tween_property($Fader, "modulate:a", closed_eye_alpha, 0.2)
 
 # Reveal the screen to simulate opened eyes.
 func open_eyes() -> void:
@@ -67,6 +65,10 @@ func show_level_intro(level_name := "Level One") -> void:
 
 func show_instruction(message: String) -> void:
 	$LevelInfo/Instruction.text = message
+
+
+func set_closed_eye_alpha(value: float) -> void:
+	closed_eye_alpha = clampf(value, 0.0, 1.0)
 
 
 func update_level(elapsed: float, duration: float, required: float, maximum: float) -> void:

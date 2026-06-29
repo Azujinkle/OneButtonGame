@@ -319,6 +319,7 @@ func _get_level_config(level_number: int) -> Dictionary:
 			"duration": 60.0,
 			"starting_energy": MAX_ENERGY * 0.3,
 			"required_rest": 1200.0,
+			"closed_eye_alpha": 1.0,
 			"event_times": [7.0, 15.0, 23.0, 31.0, 39.0, 47.0],
 			"steal_duration": 1.0,
 			"intro_stream": null,
@@ -388,6 +389,7 @@ func _get_level_config(level_number: int) -> Dictionary:
 			"duration": 45.0,
 			"starting_energy": MAX_ENERGY * 0.4,
 			"required_rest": 900.0,
+			"closed_eye_alpha": 1.0,
 			"event_times": [7.0, 16.0, 25.0, 34.0],
 			"steal_duration": 2.0,
 			"intro_stream": LEVEL_TWO_INTRO_STREAM,
@@ -440,6 +442,7 @@ func _get_level_config(level_number: int) -> Dictionary:
 		"duration": 30.0,
 		"starting_energy": 900.0,
 		"required_rest": 600.0,
+		"closed_eye_alpha": 0.7,
 		"event_times": [7.0, 17.0],
 		"steal_duration": 4.0,
 		"intro_stream": null,
@@ -496,6 +499,7 @@ func _reset_level_state() -> void:
 	thief_hands.steal_duration = current_level["steal_duration"]
 	$HUDlayer/HUD/Pause.disabled = false
 	hud.open_eyes()
+	hud.set_closed_eye_alpha(current_level["closed_eye_alpha"])
 	hud.show_level_intro(current_level["title"])
 	hud.update_level(level_elapsed, current_level["duration"], current_level["required_rest"], MAX_ENERGY)
 	hud.update_energy(energy, false, false)
