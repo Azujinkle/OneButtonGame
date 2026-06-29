@@ -20,6 +20,7 @@ enum State {
 @onready var backpack = $"../Backpack"
 @onready var thief_hands = $"../ThiefHands"
 @onready var warning_sound: AudioStreamPlayer = $WarningSound
+@onready var close_sound: AudioStreamPlayer = $CloseSound
 
 var state := State.IDLE
 var player_is_awake := true
@@ -74,8 +75,8 @@ func _prevent_steal() -> void:
 func _close_and_reset_after_delay() -> void:
 	await get_tree().create_timer(close_delay).timeout
 	if backpack.is_open:
-		if warning_sound.stream:
-			warning_sound.play()
+		if close_sound.stream:
+			close_sound.play()
 		backpack.close_zip()
 	thief_hands.reset_position()
 	state = State.IDLE

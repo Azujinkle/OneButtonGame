@@ -11,4 +11,7 @@ func _process(delta: float) -> void:
 
 func _on_return_pressed() -> void:
 	get_tree().paused = false
-	hide()
+	if get_parent() is CanvasLayer:
+		hide()
+	else:
+		get_tree().change_scene_to_file("res://scenes/title.tscn")

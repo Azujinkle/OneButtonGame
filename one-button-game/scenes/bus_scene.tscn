@@ -1,58 +1,76 @@
-[gd_scene load_steps=11 format=3 uid="uid://iuclld5p4k8d"]
+[gd_scene format=3 uid="uid://iuclld5p4k8d"]
 
+[ext_resource type="Texture2D" uid="uid://w0hj7clbh0l" path="res://art/busSceneArt/Bus-Background-V2.png" id="1_7tswm"]
 [ext_resource type="Script" uid="uid://bjslycpl283dh" path="res://scripts/backpack.gd" id="1_backpack"]
-[ext_resource type="Script" path="res://scripts/thief_hands.gd" id="2_hands"]
-[ext_resource type="Script" path="res://scripts/steal_event.gd" id="3_steal_event"]
-[ext_resource type="AudioStream" uid="uid://b2350smq85kt" path="res://zip.mp3" id="4_zip"]
-[ext_resource type="Texture2D" uid="uid://7jsxn005jvt1" path="res://art/busSceneArt/Bus-Background.png" id="5_background"]
+[ext_resource type="Script" uid="uid://burv0ao6v4l83" path="res://scripts/thief_hands.gd" id="2_hands"]
+[ext_resource type="Script" uid="uid://dw8ji5wqje04c" path="res://scripts/steal_event.gd" id="3_steal_event"]
+[ext_resource type="AudioStream" path="res://art/audio/4 seconds of Zipper_Fabric_LevelOne_LevelTwo.mp3" id="4_zip"]
+[ext_resource type="AudioStream" path="res://art/audio/51176__rutgermuller__zipper-unzip-3-slow_Onboarding_LevelOne_LevelTwo.wav" id="5_close_zip"]
 [ext_resource type="Texture2D" uid="uid://sq8ufjokipm5" path="res://art/busSceneArt/Backpack.png" id="6_backpack_closed"]
 [ext_resource type="Texture2D" uid="uid://2egttt3u1lqo" path="res://art/busSceneArt/Backpack-Open.png" id="7_backpack_open"]
-[ext_resource type="Texture2D" uid="uid://duil5o8kt23mh" path="res://art/busSceneArt/Arm.png" id="8_arm"]
+[ext_resource type="Texture2D" uid="uid://dlw4khedsgqq8" path="res://art/busSceneArt/Arm-V2.png" id="7_bx64l"]
 [ext_resource type="Texture2D" uid="uid://klfgb722ujao" path="res://art/busSceneArt/Backpack-Laptop.png" id="9_backpack_laptop"]
 [ext_resource type="Texture2D" uid="uid://83hotos225mh" path="res://art/busSceneArt/Laptop.png" id="10_laptop"]
 
 [node name="busScene" type="Node2D" unique_id=840647726]
 
-[node name="Background" type="Sprite2D" parent="."]
-texture = ExtResource("5_background")
-centered = false
+[node name="Background" type="Sprite2D" parent="." unique_id=849530378]
 scale = Vector2(0.666667, 0.666667)
+texture = ExtResource("1_7tswm")
+centered = false
 
 [node name="Backpack" type="Node2D" parent="." unique_id=1319432197]
 position = Vector2(900, 510)
 script = ExtResource("1_backpack")
 
 [node name="ClosedVisual" type="Sprite2D" parent="Backpack" unique_id=36664336]
+position = Vector2(-77.23998, -62.360016)
+scale = Vector2(0.26939815, 0.24959822)
 texture = ExtResource("6_backpack_closed")
-scale = Vector2(0.18, 0.18)
 
-[node name="OpenWithItemVisual" type="Sprite2D" parent="Backpack"]
+[node name="OpenWithItemVisual" type="Sprite2D" parent="Backpack" unique_id=1448350456]
 visible = false
+position = Vector2(-77.24, -63.860012)
+scale = Vector2(0.26939815, 0.25127232)
 texture = ExtResource("9_backpack_laptop")
-scale = Vector2(0.18, 0.18)
 
 [node name="OpenEmptyVisual" type="Sprite2D" parent="Backpack" unique_id=1818257166]
 visible = false
+position = Vector2(-77.24, -63.860012)
+scale = Vector2(0.26939815, 0.25127232)
 texture = ExtResource("7_backpack_open")
-scale = Vector2(0.18, 0.18)
 
-[node name="ThiefHands" type="Node2D" parent="."]
+[node name="HandHiddenPoint" type="Marker2D" parent="." unique_id=686515576]
+position = Vector2(1650, 410)
+
+[node name="HandBackpackPoint" type="Marker2D" parent="." unique_id=1921183483]
+position = Vector2(772, 408)
+
+[node name="ThiefHands" type="Node2D" parent="." unique_id=834940271]
 position = Vector2(1650, 410)
 script = ExtResource("2_hands")
 
-[node name="HandVisual" type="Sprite2D" parent="ThiefHands"]
-texture = ExtResource("8_arm")
-scale = Vector2(0.12, 0.12)
+[node name="HandVisual" type="Sprite2D" parent="ThiefHands" unique_id=1701475763]
+position = Vector2(-1887.0001, 781)
+scale = Vector2(0.55387664, 0.52082986)
+texture = ExtResource("7_bx64l")
 
-[node name="StolenLaptop" type="Sprite2D" parent="ThiefHands"]
+[node name="HandGrabPoint" type="Marker2D" parent="ThiefHands/HandVisual" unique_id=869752960]
+position = Vector2(628.29895, -656.6443)
+
+[node name="StolenLaptop" type="Sprite2D" parent="ThiefHands" unique_id=1873841346]
 visible = false
 position = Vector2(-190, -20)
-texture = ExtResource("10_laptop")
 scale = Vector2(0.12, 0.12)
+texture = ExtResource("10_laptop")
 
-[node name="StealEvent" type="Node" parent="."]
+[node name="StealEvent" type="Node" parent="." unique_id=718191831]
 script = ExtResource("3_steal_event")
 
-[node name="WarningSound" type="AudioStreamPlayer" parent="StealEvent"]
+[node name="WarningSound" type="AudioStreamPlayer" parent="StealEvent" unique_id=808091944]
 stream = ExtResource("4_zip")
+volume_db = -6.0
+
+[node name="CloseSound" type="AudioStreamPlayer" parent="StealEvent"]
+stream = ExtResource("5_close_zip")
 volume_db = -6.0
