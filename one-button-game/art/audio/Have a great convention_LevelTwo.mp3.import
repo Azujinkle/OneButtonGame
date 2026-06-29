@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cft61bqdq75p6"
+path="res://.godot/imported/Have a great convention_LevelTwo.mp3-8c1f7a3845b829a94b3680b962d3b470.mp3str"
+
+[deps]
+
+source_file="res://art/audio/Have a great convention_LevelTwo.mp3"
+dest_files=["res://.godot/imported/Have a great convention_LevelTwo.mp3-8c1f7a3845b829a94b3680b962d3b470.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

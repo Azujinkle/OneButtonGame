@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bfmaie5h7qhre"
+path="res://.godot/imported/45 second bus ambience_LevelTwo.mp3-42715fe193e26c3847eff24009491b6b.mp3str"
+
+[deps]
+
+source_file="res://art/audio/45 second bus ambience_LevelTwo.mp3"
+dest_files=["res://.godot/imported/45 second bus ambience_LevelTwo.mp3-42715fe193e26c3847eff24009491b6b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dr5ngw7umy1c3"
+path="res://.godot/imported/Have a Great day_LevelOne.mp3-b23bbb010042fbdf7db35d637a3381ad.mp3str"
+
+[deps]
+
+source_file="res://art/audio/Have a Great day_LevelOne.mp3"
+dest_files=["res://.godot/imported/Have a Great day_LevelOne.mp3-b23bbb010042fbdf7db35d637a3381ad.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

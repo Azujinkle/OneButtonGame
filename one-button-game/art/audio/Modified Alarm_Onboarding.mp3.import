@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://qy3o4kxqxf35"
+path="res://.godot/imported/Modified Alarm_Onboarding.mp3-baa6e45e1d0a99066c76779f19cd4e5e.mp3str"
+
+[deps]
+
+source_file="res://art/audio/Modified Alarm_Onboarding.mp3"
+dest_files=["res://.godot/imported/Modified Alarm_Onboarding.mp3-baa6e45e1d0a99066c76779f19cd4e5e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

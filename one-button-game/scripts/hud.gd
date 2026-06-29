@@ -2,12 +2,14 @@ extends Control
 
 var threshold: float
 signal pause
+signal continue_pressed
 
 # A partially transparent test value lets us inspect events while "asleep".
 # Change this to 1.0 once the steal flow and audio cues are finalized.
 const CLOSED_EYE_ALPHA = 0.7
 const RESTED_COLOR = Color("e96a0e")
 const TIRED_COLOR = Color("a92a0e")
+const MAX_ENERGY_VALUE = 1800.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,6 +41,9 @@ func flare_eyes() -> void:
 # Updates energy bar and status.
 func update_energy(value: float, is_resting: bool, is_rem: bool) -> void:
 	$Energy/Bar.value = value / 18.0
+	$Energy/Percent.text = "%d%%" % roundi(value / MAX_ENERGY_VALUE * 100.0)
+	var percent_x: float = $Energy/Bar.position.x + $Energy/Bar.size.x * value / MAX_ENERGY_VALUE
+	$Energy/Percent.position.x = percent_x - $Energy/Percent.size.x / 2.0
 	if is_rem:
 		$Energy/Status.text = "Tired..."
 	elif is_resting:
@@ -53,9 +58,10 @@ func update_energy(value: float, is_resting: bool, is_rem: bool) -> void:
 	$Energy/Bar.add_theme_stylebox_override("fill", stylebox)
 
 
-# Display the Level One prompt before its timer begins.
-func show_level_intro() -> void:
-	$LevelInfo/Instruction.text = "Hold SPACE to sleep and start Level One"
+# Display the level prompt before its timer begins.
+func show_level_intro(level_name := "Level One") -> void:
+	$ResultOverlay.visible = false
+	$LevelInfo/Instruction.text = "Hold SPACE to sleep and start %s" % level_name
 	$LevelInfo/Subtitle.text = "Protect your laptop and get enough rest."
 
 
@@ -67,8 +73,9 @@ func update_level(elapsed: float, duration: float, required: float, maximum: flo
 	var time_left := maxf(duration - elapsed, 0.0)
 	$LevelInfo/Timer.text = "Bus ride: %.1f s" % time_left
 	threshold = required
-	var displacement = $Energy/Bar.size.x * required / maximum - $Energy/Marker.size.x / 2.0
-	$Energy/Marker.position = Vector2($Energy/Bar.position.x + displacement, -7)
+	var rested_x: float = $Energy/Bar.position.x + $Energy/Bar.size.x * required / maximum
+	$Energy/RestedLine.position.x = rested_x - $Energy/RestedLine.size.x / 2.0
+	$Energy/RestedLabel.position.x = rested_x - $Energy/RestedLabel.size.x / 2.0
 
 func show_subtitle(message: String) -> void:
 	$LevelInfo/Subtitle.text = message
@@ -77,13 +84,11 @@ func show_subtitle(message: String) -> void:
 func show_result(message: String, success: bool) -> void:
 	$ResultOverlay/Message.text = message
 	if success:
-		$ResultOverlay/Message.position = Vector2(360.5, 255.5)
 		$ResultOverlay/Message.modulate = Color(0.75, 1.0, 0.78)
 		$ResultOverlay/AngryMan.visible = false
 		$ResultOverlay/Retry.visible = false
 		$ResultOverlay/Continue.visible = true
 	else:
-		$ResultOverlay/Message.position = Vector2(80, 220)
 		$ResultOverlay/Message.modulate = Color(1.0, 0.75, 0.75)
 		$ResultOverlay/AngryMan.visible = true
 		$ResultOverlay/Retry.visible = true
@@ -102,4 +107,4 @@ func _on_retry_pressed() -> void:
 
 
 func _on_continue_pressed() -> void:
-	pass # Replace with function body.
+	continue_pressed.emit()

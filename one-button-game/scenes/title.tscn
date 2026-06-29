@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://6y6yg5jxpnn8"]
 
 [ext_resource type="Script" uid="uid://dsrek0jqrnj1t" path="res://scripts/title.gd" id="1_4ignj"]
+[ext_resource type="Texture2D" uid="uid://ic0dw01qp6t7" path="res://art/menus/Main_Menu_v2.png" id="2_ah8jo"]
+[ext_resource type="Texture2D" path="res://art/menus/Main-title-final.png" id="3_title_splash"]
 [ext_resource type="Texture2D" uid="uid://4hiip3kdb0xd" path="res://art/menus/Bus-Stop.png" id="2_b3w7a"]
 [ext_resource type="Texture2D" uid="uid://b5y3lardfloov" path="res://art/menus/Play_Idle.png" id="3_4rr2b"]
 [ext_resource type="Texture2D" uid="uid://cxx6khmx7f1k0" path="res://art/menus/Play_Pressed.png" id="4_b3w7a"]
@@ -20,25 +22,48 @@
 [node name="Title" type="Control" unique_id=1861971730]
 process_mode = 1
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ignj")
+
+[node name="background" type="TextureRect" parent="." unique_id=691108712]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ah8jo")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MainTitleSplash" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_title_splash")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Menu" type="Control" parent="." unique_id=815913827]
+visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 3.0
 offset_top = 35.0
-offset_right = 3.0
 offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4ignj")
-
-[node name="Menu" type="Control" parent="." unique_id=815913827]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-grow_horizontal = 2
 
 [node name="Bus Stop" type="Sprite2D" parent="Menu" unique_id=1616305927]
 scale = Vector2(0.6, 0.6)
