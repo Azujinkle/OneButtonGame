@@ -34,6 +34,8 @@ const AWAKE_ENERGY_PER_SECOND := -60.0
 const REST_ENERGY_PER_SECOND := 90.0
 const REST_THRESHOLD := 0.5 # Seconds required before closed eyes count as rest.
 const REM_THRESHOLD := 600.0
+const BASE_AUDIO_DB_OFFSET := -4.0
+const THIEF_VOLUME_MULTIPLIER := 1.25
 
 const BUS_AMBIENCE_STREAM := preload("res://art/audio/bus ambience 30 sec_LevelOne.mp3")
 const BUSINESS_ARRIVE_STREAM := preload("res://art/audio/businessarrive_LevelOne.mp3")
@@ -235,18 +237,19 @@ func _finish_level() -> void:
 
 func _on_volume_change() -> void:
 	var value = Settings.volume/10.0
-	$busScene/StealEvent/WarningSound.volume_db = linear_to_db(value) - 4.0
-	$busScene/StealEvent/CloseSound.volume_db = linear_to_db(value) - 4.0
+	$busScene/StealEvent/WarningSound.volume_db = _get_base_volume_db()
+	$busScene/StealEvent/CloseSound.volume_db = _get_base_volume_db()
 	for audio_player in [
 		bus_ambience_audio,
 		bus_arrive_audio,
 		win_audio,
 		not_rested_audio,
 		intro_audio,
-		thief_voice_audio,
 	]:
 		if audio_player:
-			audio_player.volume_db = linear_to_db(value) - 4.0
+			audio_player.volume_db = _get_base_volume_db()
+	if thief_voice_audio:
+		thief_voice_audio.volume_db = _get_thief_volume_db()
 
 
 func _on_pause() -> void:
@@ -267,7 +270,7 @@ func _create_audio_player(stream: AudioStream, player_name: String) -> AudioStre
 	var audio_player := AudioStreamPlayer.new()
 	audio_player.name = player_name
 	audio_player.stream = stream
-	audio_player.volume_db = linear_to_db(Settings.volume / 10.0) - 4.0
+	audio_player.volume_db = _get_base_volume_db()
 	add_child(audio_player)
 	return audio_player
 
@@ -284,7 +287,16 @@ func _play_thief_voice(stream: AudioStream) -> void:
 		return
 	thief_voice_audio.stop()
 	thief_voice_audio.stream = stream
+	thief_voice_audio.volume_db = _get_thief_volume_db()
 	thief_voice_audio.play()
+
+
+func _get_base_volume_db() -> float:
+	return linear_to_db(Settings.volume / 10.0) + BASE_AUDIO_DB_OFFSET
+
+
+func _get_thief_volume_db() -> float:
+	return linear_to_db(Settings.volume / 10.0 * THIEF_VOLUME_MULTIPLIER) + BASE_AUDIO_DB_OFFSET
 
 
 func _stop_level_audio() -> void:
