@@ -5,6 +5,7 @@ const TITLE_FADE_SECONDS := 0.75
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$TitleScreenAudio.play()
 	_play_title_intro()
 
 
@@ -28,6 +29,7 @@ func _play_title_intro() -> void:
 
 
 func _on_start_pressed() -> void:
+	$TitleScreenAudio.stop()
 	get_tree().change_scene_to_file("res://scenes/onboarding.tscn")
 
 
