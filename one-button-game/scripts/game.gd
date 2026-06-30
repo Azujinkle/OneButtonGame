@@ -51,6 +51,7 @@ func _ready() -> void:
 	steal_event.steal_prevented.connect(_on_steal_prevented)
 	steal_event.response_window_started.connect(_on_response_window_started)
 	hud.continue_pressed.connect(_on_continue_pressed)
+	hud.retry_pressed.connect(_on_retry_pressed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -164,7 +165,10 @@ func _on_response_window_started() -> void:
 
 func _start_level() -> void:
 	level_state = LevelState.RUNNING
-	hud.show_instruction("Hold SPACE to sleep. Release it to wake up.")
+	if !Settings.toggle:
+		hud.show_instruction("Hold SPACE to sleep. Release it to wake up.")
+	else:
+		hud.show_instruction("Press SPACE to sleep. Press it again to wake up.")
 	hud.show_subtitle("%s started. Rest, but listen for the zipper!" % current_level["title"])
 	audio_manager.play_bus_ambience()
 
@@ -446,7 +450,10 @@ func _reset_level_state() -> void:
 	if audio_manager.has_intro():
 		audio_manager.play_intro()
 	can_start_level = true
-	hud.show_instruction("Hold SPACE to sleep. Release it to wake up.")
+	if !Settings.toggle:
+		hud.show_instruction("Hold SPACE to sleep. Release it to wake up.")
+	else:
+		hud.show_instruction("Press SPACE to sleep. Press it again to wake up.")
 	hud.show_subtitle("%s started. Rest, but listen for the zipper!" % current_level["title"])
 
 
@@ -469,3 +476,7 @@ func _on_continue_pressed() -> void:
 		_reset_level_state()
 	else:
 		get_tree().change_scene_to_file("res://scenes/credits.tscn")
+
+func _on_retry_pressed() -> void:
+	_apply_current_level_audio()
+	_reset_level_state()
