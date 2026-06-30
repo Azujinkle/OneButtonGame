@@ -4,6 +4,7 @@ var threshold: float
 var closed_eye_alpha := 0.7
 signal pause
 signal continue_pressed
+signal retry_pressed
 
 const RESTED_COLOR = Color("e96a0e")
 const TIRED_COLOR = Color("a92a0e")
@@ -105,9 +106,8 @@ func _on_pause_pressed() -> void:
 
 
 func _on_retry_pressed() -> void:
-	# TODO: change to properly reload current level
 	$ResultOverlay.visible = false
-	get_tree().reload_current_scene()
+	retry_pressed.emit()
 
 
 func _on_continue_pressed() -> void:
