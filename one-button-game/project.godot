@@ -13,7 +13,7 @@ config_version=5
 config/name="OneButtonGame"
 run/main_scene="uid://6y6yg5jxpnn8"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://wqpbmiiqg3ev"
 
 [autoload]
 

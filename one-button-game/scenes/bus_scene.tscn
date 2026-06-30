@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://bjslycpl283dh" path="res://scripts/backpack.gd" id="1_backpack"]
 [ext_resource type="Script" uid="uid://burv0ao6v4l83" path="res://scripts/thief_hands.gd" id="2_hands"]
 [ext_resource type="Script" uid="uid://dw8ji5wqje04c" path="res://scripts/steal_event.gd" id="3_steal_event"]
-[ext_resource type="AudioStream" path="res://art/audio/4 seconds of Zipper_Fabric_LevelOne_LevelTwo.mp3" id="4_zip"]
-[ext_resource type="AudioStream" path="res://art/audio/51176__rutgermuller__zipper-unzip-3-slow_Onboarding_LevelOne_LevelTwo.wav" id="5_close_zip"]
+[ext_resource type="AudioStream" uid="uid://dvw7fte7p41b5" path="res://art/audio/4 seconds of Zipper_Fabric_LevelOne_LevelTwo.mp3" id="4_zip"]
+[ext_resource type="AudioStream" uid="uid://clnjx37wdumo7" path="res://art/audio/51176__rutgermuller__zipper-unzip-3-slow_Onboarding_LevelOne_LevelTwo.wav" id="5_close_zip"]
 [ext_resource type="Texture2D" uid="uid://sq8ufjokipm5" path="res://art/busSceneArt/Backpack.png" id="6_backpack_closed"]
 [ext_resource type="Texture2D" uid="uid://2egttt3u1lqo" path="res://art/busSceneArt/Backpack-Open.png" id="7_backpack_open"]
 [ext_resource type="Texture2D" uid="uid://dlw4khedsgqq8" path="res://art/busSceneArt/Arm-V2.png" id="7_bx64l"]
@@ -71,6 +71,6 @@ script = ExtResource("3_steal_event")
 stream = ExtResource("4_zip")
 volume_db = -6.0
 
-[node name="CloseSound" type="AudioStreamPlayer" parent="StealEvent"]
+[node name="CloseSound" type="AudioStreamPlayer" parent="StealEvent" unique_id=786191672]
 stream = ExtResource("5_close_zip")
 volume_db = -6.0

@@ -43,7 +43,7 @@ func update_energy(value: float, is_resting: bool, is_rem: bool) -> void:
 	var percent_x: float = $Energy/Bar.position.x + $Energy/Bar.size.x * value / MAX_ENERGY_VALUE
 	$Energy/Percent.position.x = percent_x - $Energy/Percent.size.x / 2.0
 	if is_rem:
-		$Energy/Status.text = "Tired..."
+		$Energy/Status.text = "Zzz..."
 	elif is_resting:
 		$Energy/Status.text = "Resting"
 	else:
@@ -86,11 +86,13 @@ func show_subtitle(message: String) -> void:
 func show_result(message: String, success: bool) -> void:
 	$ResultOverlay/Message.text = message
 	if success:
+		$ResultOverlay/Message.position.x = 340
 		$ResultOverlay/Message.modulate = Color(0.75, 1.0, 0.78)
 		$ResultOverlay/AngryMan.visible = false
 		$ResultOverlay/Retry.visible = false
 		$ResultOverlay/Continue.visible = true
 	else:
+		$ResultOverlay/Message.position.x = 60
 		$ResultOverlay/Message.modulate = Color(1.0, 0.75, 0.75)
 		$ResultOverlay/AngryMan.visible = true
 		$ResultOverlay/Retry.visible = true

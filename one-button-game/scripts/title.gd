@@ -51,3 +51,7 @@ func _on_pause() -> void:
 	for button in $Menu.get_children():
 		if button.name != "Bus Stop":
 			button.disabled = !button.disabled
+
+
+func _on_volume_change() -> void:
+	$TitleScreenAudio.volume_db = linear_to_db(Settings.volume) - 4.0

@@ -1,14 +1,14 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene format=3 uid="uid://c404b8wjdhwrh"]
 
-[ext_resource type="Script" path="res://scripts/onboarding.gd" id="1_onboarding"]
-[ext_resource type="Texture2D" path="res://art/menus/AlarmClock-6AM-Tues-Alarm.png" id="2_alarm"]
-[ext_resource type="Texture2D" path="res://art/busSceneArt/Bus-Background-V2.png" id="3_bus"]
-[ext_resource type="Texture2D" path="res://art/busSceneArt/Backpack-Laptop.png" id="4_backpack"]
-[ext_resource type="AudioStream" path="res://art/audio/Modified Alarm_Onboarding.mp3" id="5_alarm_audio"]
-[ext_resource type="AudioStream" path="res://art/audio/51176__rutgermuller__zipper-unzip-3-slow_Onboarding_LevelOne_LevelTwo.wav" id="6_zipper_audio"]
-[ext_resource type="AudioStream" path="res://art/audio/busonboarding_Onboarding.mp3" id="7_bus_audio"]
+[ext_resource type="Script" uid="uid://bio7fu0d11bdk" path="res://scripts/onboarding.gd" id="1_onboarding"]
+[ext_resource type="Texture2D" uid="uid://c82f7oje8h6c8" path="res://art/menus/AlarmClock-6AM-Tues-Alarm.png" id="2_alarm"]
+[ext_resource type="Texture2D" uid="uid://w0hj7clbh0l" path="res://art/busSceneArt/Bus-Background-V2.png" id="3_bus"]
+[ext_resource type="Texture2D" uid="uid://klfgb722ujao" path="res://art/busSceneArt/Backpack-Laptop.png" id="4_backpack"]
+[ext_resource type="AudioStream" uid="uid://qy3o4kxqxf35" path="res://art/audio/Modified Alarm_Onboarding.mp3" id="5_alarm_audio"]
+[ext_resource type="AudioStream" uid="uid://clnjx37wdumo7" path="res://art/audio/51176__rutgermuller__zipper-unzip-3-slow_Onboarding_LevelOne_LevelTwo.wav" id="6_zipper_audio"]
+[ext_resource type="AudioStream" uid="uid://cpa7wi0j38rg8" path="res://art/audio/busonboarding_Onboarding.mp3" id="7_bus_audio"]
 
-[node name="Onboarding" type="Control"]
+[node name="Onboarding" type="Control" unique_id=1358552280]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_onboarding")
 
-[node name="Visuals" type="Control" parent="."]
+[node name="Visuals" type="Control" parent="." unique_id=1396661270]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BusBackground" type="TextureRect" parent="Visuals"]
+[node name="BusBackground" type="TextureRect" parent="Visuals" unique_id=1971111752]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -37,7 +37,7 @@ texture = ExtResource("3_bus")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="AlarmClock" type="TextureRect" parent="Visuals"]
+[node name="AlarmClock" type="TextureRect" parent="Visuals" unique_id=1464969574]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,7 +54,7 @@ texture = ExtResource("2_alarm")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Backpack" type="TextureRect" parent="Visuals"]
+[node name="Backpack" type="TextureRect" parent="Visuals" unique_id=1480435524]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -72,7 +72,7 @@ texture = ExtResource("4_backpack")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=280742315]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,7 +81,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.25)
 
-[node name="DialoguePanel" type="PanelContainer" parent="."]
+[node name="DialoguePanel" type="PanelContainer" parent="." unique_id=467973888]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -94,20 +94,19 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Text" type="Label" parent="DialoguePanel"]
+[node name="Text" type="Label" parent="DialoguePanel" unique_id=1649147922]
 layout_mode = 2
-text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Audio" type="Node" parent="."]
+[node name="Audio" type="Node" parent="." unique_id=299038742]
 
-[node name="AlarmAudio" type="AudioStreamPlayer" parent="Audio"]
+[node name="AlarmAudio" type="AudioStreamPlayer" parent="Audio" unique_id=1911494877]
 stream = ExtResource("5_alarm_audio")
 
-[node name="ZipperAudio" type="AudioStreamPlayer" parent="Audio"]
+[node name="ZipperAudio" type="AudioStreamPlayer" parent="Audio" unique_id=1788130546]
 stream = ExtResource("6_zipper_audio")
 
-[node name="BusOnboardingAudio" type="AudioStreamPlayer" parent="Audio"]
+[node name="BusOnboardingAudio" type="AudioStreamPlayer" parent="Audio" unique_id=1849707103]
 stream = ExtResource("7_bus_audio")

@@ -29,7 +29,7 @@ func _run_onboarding() -> void:
 	_show_bus_intro()
 	await _show_line("Bus Driver: Attention passengers. ", 3.0)
 	await _show_line("Bus Driver: Next stop, The Business District.", 3.0)
-	await _show_line("Bus Driver: Just to let you know, we are not liable for any theft on this bus. But, The bus thief only steals while you're asleep.", 9.0)
+	await _show_line("Bus Driver: Just to let you know, we are not liable for any theft on this bus. But,\nthe bus thieves only steal when you're asleep.", 9.0)
 	await _show_line("Bus Driver: Sleep at your own discretion.", 2.5)
 
 	# Do not switch scenes until the bus onboarding voice line finishes.
@@ -44,6 +44,7 @@ func _show_alarm_intro() -> void:
 	alarm_clock.visible = true
 	bus_background.visible = false
 	backpack.visible = false
+	alarm_audio.volume_db = linear_to_db(Settings.volume)
 	alarm_audio.play()
 
 
@@ -51,6 +52,7 @@ func _show_packing_moment() -> void:
 	alarm_clock.visible = false
 	bus_background.visible = true
 	backpack.visible = true
+	zipper_audio.volume_db = linear_to_db(Settings.volume)
 	zipper_audio.play()
 
 
@@ -58,6 +60,7 @@ func _show_bus_intro() -> void:
 	alarm_clock.visible = false
 	bus_background.visible = true
 	backpack.visible = true
+	bus_audio.volume_db = linear_to_db(Settings.volume)
 	bus_audio.play()
 
 
