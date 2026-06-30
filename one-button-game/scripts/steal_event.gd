@@ -67,6 +67,8 @@ func _retreat_from_awake_player() -> void:
 
 func _prevent_steal() -> void:
 	state = State.COMPLETE
+	if warning_sound.playing:
+		warning_sound.stop()
 	thief_hands.retreat()
 	steal_prevented.emit()
 	_close_and_reset_after_delay()
@@ -107,6 +109,10 @@ func _on_hand_reached_backpack() -> void:
 
 func reset_event() -> void:
 	state = State.IDLE
+	if warning_sound.playing:
+		warning_sound.stop()
+	if close_sound.playing:
+		close_sound.stop()
 	backpack.close_zip()
 	thief_hands.reset_position()
 
