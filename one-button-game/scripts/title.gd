@@ -6,7 +6,10 @@ const TITLE_FADE_SECONDS := 0.75
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$TitleScreenAudio.play()
-	_play_title_intro()
+	if Settings.from_credits:
+		Settings.from_credits = false
+	else:
+		_play_title_intro()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

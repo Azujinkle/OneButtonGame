@@ -75,14 +75,14 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="Credits" unique_id=1238891078]
 layout_mode = 1
-offset_left = 569.00006
-offset_top = 109.0
-offset_right = 671.00006
-offset_bottom = 444.0
-rotation = 0.017453292
+offset_left = 552.99994
+offset_top = 102.0
+offset_right = 686.3543
+offset_bottom = 449.0
+rotation = 0.008726646
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Credits
-
+text = "Developed by
+Napperbuster:
 
 Jeri Huang
 
@@ -95,6 +95,7 @@ Lisa Ha
 Lucas Suarez
 "
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Attributions" type="Control" parent="." unique_id=1714800115]
 anchors_preset = 0
@@ -105,13 +106,18 @@ offset_bottom = 94.0
 
 [node name="Label" type="Label" parent="Attributions" unique_id=1878357152]
 layout_mode = 1
-offset_left = 772.0
-offset_top = 109.0
-offset_right = 874.0
-offset_bottom = 444.0
-rotation = 0.034906585
+offset_left = 776.0
+offset_top = 159.0
+offset_right = 878.0
+offset_bottom = 494.0
+rotation = 0.02617994
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Attributions"
+text = "Attributions
+
+Godot Engine
+
+CC0 SFXs sourced from freesound.org"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [connection signal="pressed" from="Buttons/Return" to="." method="_on_return_pressed"]

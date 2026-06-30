@@ -14,4 +14,5 @@ func _on_return_pressed() -> void:
 	if get_parent() is CanvasLayer:
 		hide()
 	else:
+		Settings.from_credits = true
 		get_tree().change_scene_to_file("res://scenes/title.tscn")

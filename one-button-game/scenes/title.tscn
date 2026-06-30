@@ -42,6 +42,7 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="MainTitleSplash" type="TextureRect" parent="." unique_id=430933391]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +55,6 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="Menu" type="Control" parent="." unique_id=815913827]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
