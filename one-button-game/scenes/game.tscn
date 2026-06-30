@@ -17,6 +17,12 @@ position = Vector2(640, 360)
 
 [node name="AudioManager" type="Node" parent="." unique_id=817056423]
 script = ExtResource("3_audio_manager")
+thief_voice_db_boost = 6.0
+thief_start_db_boost = 4.0
+level_one_warning_zipper_db_boost = -8.0
+level_two_warning_zipper_db_boost = -10.0
+level_three_warning_zipper_db_boost = -15.0
+close_backpack_zip_db_boost = -15.0
 
 [node name="HUDlayer" type="CanvasLayer" parent="." unique_id=443681947]
 

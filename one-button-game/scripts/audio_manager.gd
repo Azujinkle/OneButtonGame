@@ -1,8 +1,15 @@
 extends Node
 class_name AudioManager
 
-const BASE_AUDIO_DB_OFFSET := -4.0
-const THIEF_VOLUME_MULTIPLIER := 1.25
+@export var base_audio_db_offset := -4.0
+@export var thief_voice_db_boost := 2.0
+@export var thief_start_db_boost := 0.0
+@export var thief_prevented_db_boost := 6.0
+@export var thief_stolen_db_boost := 6.0
+@export var level_one_warning_zipper_db_boost := 0.0
+@export var level_two_warning_zipper_db_boost := 2.0
+@export var level_three_warning_zipper_db_boost := 4.0
+@export var close_backpack_zip_db_boost := 0.0
 
 const LEVEL_ONE_AUDIO := {
 	"bus_ambience": preload("res://art/audio/bus ambience 30 sec_LevelOne.mp3"),
@@ -131,6 +138,19 @@ func play_intro() -> void:
 	_play_audio(intro_audio)
 
 
+func has_intro() -> bool:
+	return intro_audio != null and intro_audio.stream != null
+
+
+func is_intro_playing() -> bool:
+	return intro_audio != null and intro_audio.playing
+
+
+func wait_for_intro_finished() -> void:
+	if is_intro_playing():
+		await intro_audio.finished
+
+
 func play_bus_ambience() -> void:
 	_play_audio(bus_ambience_audio)
 
@@ -147,12 +167,12 @@ func play_not_rested() -> void:
 	_play_audio(not_rested_audio)
 
 
-func play_thief_voice(stream: AudioStream) -> void:
+func play_thief_voice(stream: AudioStream, voice_type := "default") -> void:
 	if thief_voice_audio == null or stream == null:
 		return
 	thief_voice_audio.stop()
 	thief_voice_audio.stream = stream
-	thief_voice_audio.volume_db = _get_thief_volume_db()
+	thief_voice_audio.volume_db = _get_thief_volume_db(voice_type)
 	thief_voice_audio.play()
 
 
@@ -190,8 +210,34 @@ func _play_audio(audio_player: AudioStreamPlayer) -> void:
 
 
 func get_base_volume_db() -> float:
-	return linear_to_db(Settings.volume / 10.0) + BASE_AUDIO_DB_OFFSET
+	return linear_to_db(Settings.volume / 10.0) + base_audio_db_offset
 
 
-func _get_thief_volume_db() -> float:
-	return linear_to_db(Settings.volume / 10.0 * THIEF_VOLUME_MULTIPLIER) + BASE_AUDIO_DB_OFFSET
+func get_zipper_volume_db(level_number: int) -> float:
+	return get_base_volume_db() + _get_level_zipper_db_boost(level_number)
+
+
+func get_close_zip_volume_db() -> float:
+	return get_base_volume_db() + close_backpack_zip_db_boost
+
+
+func _get_thief_volume_db(voice_type := "default") -> float:
+	return get_base_volume_db() + thief_voice_db_boost + _get_thief_type_db_boost(voice_type)
+
+
+func _get_thief_type_db_boost(voice_type: String) -> float:
+	if voice_type == "start":
+		return thief_start_db_boost
+	if voice_type == "prevented":
+		return thief_prevented_db_boost
+	if voice_type == "stolen":
+		return thief_stolen_db_boost
+	return 0.0
+
+
+func _get_level_zipper_db_boost(level_number: int) -> float:
+	if level_number == 3:
+		return level_three_warning_zipper_db_boost
+	if level_number == 2:
+		return level_two_warning_zipper_db_boost
+	return level_one_warning_zipper_db_boost

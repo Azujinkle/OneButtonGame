@@ -29,6 +29,9 @@ var current_encounter := 0
 var zipper_hint_shown := false
 var current_level_number := 1
 var current_level: Dictionary
+var can_start_level := false
+var start_input_released := false
+var next_random_event_time := 0.0
 
 const MAX_ENERGY := 1800.0
 const AWAKE_ENERGY_PER_SECOND := -60.0
@@ -38,6 +41,7 @@ const REM_THRESHOLD := 600.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomize()
 	current_level = _get_level_config(current_level_number)
 	_apply_current_level_audio()
 	_reset_level_state()
@@ -58,13 +62,22 @@ func _process(delta: float) -> void:
 
 	if is_rem and energy > REM_THRESHOLD:
 		is_rem = false
-		
-	if !Settings.toggle:
-		var should_close_eyes := is_rem or Input.is_action_pressed("close")
-		if should_close_eyes != eyes_are_closed:
-			set_eyes_closed(should_close_eyes)
-	elif Settings.toggle and Input.is_action_just_pressed("close"):
-			set_eyes_closed(!eyes_are_closed)
+
+	if can_start_level:
+		# Prevent held input from the previous screen/announcement from immediately closing the eyes.
+		if not start_input_released:
+			if Input.is_action_pressed("close"):
+				start_input_released = false
+			else:
+				start_input_released = true
+
+		if start_input_released:
+			if !Settings.toggle:
+				var should_close_eyes := is_rem or Input.is_action_pressed("close")
+				if should_close_eyes != eyes_are_closed:
+					set_eyes_closed(should_close_eyes)
+			elif Settings.toggle and Input.is_action_just_pressed("close"):
+					set_eyes_closed(!eyes_are_closed)
 
 	if level_state != LevelState.RUNNING:
 		hud.update_energy(energy, false, is_rem)
@@ -94,6 +107,9 @@ func _process(delta: float) -> void:
 
 
 func set_eyes_closed(value: bool) -> void:
+	if not can_start_level:
+		return
+
 	if eyes_are_closed == value:
 		return
 
@@ -101,8 +117,6 @@ func set_eyes_closed(value: bool) -> void:
 	if eyes_are_closed:
 		hud.close_eyes()
 		steal_event.player_closed_eyes()
-		if level_state == LevelState.WAITING_TO_START:
-			_start_level()
 	else:
 		hud.open_eyes()
 		if is_resting:
@@ -131,7 +145,7 @@ func lose_from_steal() -> void:
 func _on_steal_succeeded() -> void:
 	var event_config := _get_current_event_config()
 	hud.show_subtitle(event_config["stolen_text"])
-	audio_manager.play_thief_voice(event_config["stolen_stream"])
+	audio_manager.play_thief_voice(event_config["stolen_stream"], "stolen")
 	await get_tree().create_timer(2.0).timeout
 	lose_from_steal()
 
@@ -139,7 +153,7 @@ func _on_steal_succeeded() -> void:
 func _on_steal_prevented() -> void:
 	var event_config := _get_current_event_config()
 	hud.show_subtitle(event_config["prevented_text"])
-	audio_manager.play_thief_voice(event_config["prevented_stream"])
+	audio_manager.play_thief_voice(event_config["prevented_stream"], "prevented")
 
 
 func _on_response_window_started() -> void:
@@ -156,10 +170,14 @@ func _start_level() -> void:
 
 
 func _try_start_scheduled_event() -> void:
-	var event_times: Array = current_level["event_times"]
-	if next_event_index >= event_times.size():
+	if not can_start_level:
 		return
-	if level_elapsed < event_times[next_event_index]:
+
+	if next_event_index >= current_level["max_events"]:
+		return
+	if level_elapsed >= current_level["duration"] - current_level["event_end_buffer"]:
+		return
+	if level_elapsed < next_random_event_time:
 		return
 	if not steal_event.is_available():
 		return
@@ -167,9 +185,29 @@ func _try_start_scheduled_event() -> void:
 	current_encounter = next_event_index + 1
 	var event_config := _get_current_event_config()
 	hud.show_subtitle(event_config["start_text"])
-	audio_manager.play_thief_voice(event_config["start_stream"])
+	audio_manager.play_thief_voice(event_config["start_stream"], "start")
 	steal_event.start_event(not eyes_are_closed)
 	next_event_index += 1
+	_schedule_next_random_event()
+
+
+func _schedule_next_random_event() -> void:
+	var max_events: int = current_level["max_events"]
+	if next_event_index >= max_events:
+		next_random_event_time = current_level["duration"] + 1.0
+		return
+
+	var min_gap: float = current_level["min_event_gap"]
+	var max_gap: float = current_level["max_event_gap"]
+	var last_allowed_time: float = current_level["duration"] - current_level["event_end_buffer"]
+	var events_after_next := max_events - next_event_index - 1
+
+	# Keep enough minimum-gap room for the remaining random events.
+	var earliest_time := level_elapsed + min_gap
+	var latest_time := minf(level_elapsed + max_gap, last_allowed_time - events_after_next * min_gap)
+	if latest_time < earliest_time:
+		latest_time = earliest_time
+	next_random_event_time = randf_range(earliest_time, latest_time)
 
 
 func _finish_level() -> void:
@@ -200,8 +238,7 @@ func _on_volume_change() -> void:
 	if audio_manager == null:
 		return
 	audio_manager.update_volume()
-	$busScene/StealEvent/WarningSound.volume_db = audio_manager.get_base_volume_db()
-	$busScene/StealEvent/CloseSound.volume_db = audio_manager.get_base_volume_db()
+	_apply_steal_event_audio_volume()
 
 
 func _on_pause() -> void:
@@ -218,10 +255,14 @@ func _get_level_config(level_number: int) -> Dictionary:
 			"title": "Level Three",
 			"duration": 60.0,
 			"starting_energy": MAX_ENERGY * 0.3,
-			"required_rest": 1200.0,
+			"required_rest": 1320.0,
 			"closed_eye_alpha": 1.0,
-			"event_times": [7.0, 15.0, 23.0, 31.0, 39.0, 47.0],
+			"min_event_gap": 3.5,
+			"max_event_gap": 6.5,
+			"max_events": 8,
+			"event_end_buffer": 3.0,
 			"steal_duration": 1.0,
+			"response_window": 1.0,
 			"audio": audio_config,
 			"arrival_text": "",
 			"win_result": "Level Three Complete!\nHardcore Mode cleared.",
@@ -284,10 +325,14 @@ func _get_level_config(level_number: int) -> Dictionary:
 			"title": "Level Two",
 			"duration": 45.0,
 			"starting_energy": MAX_ENERGY * 0.4,
-			"required_rest": 900.0,
+			"required_rest": 990.0,
 			"closed_eye_alpha": 1.0,
-			"event_times": [7.0, 16.0, 25.0, 34.0],
+			"min_event_gap": 4.0,
+			"max_event_gap": 7.0,
+			"max_events": 6,
+			"event_end_buffer": 3.0,
 			"steal_duration": 2.0,
+			"response_window": 1.0,
 			"audio": audio_config,
 			"arrival_text": "Bus Driver: We are arriving at The Convention Center.",
 			"win_result": "Level Two Complete!\nYou protected the laptop and got enough rest.",
@@ -333,10 +378,14 @@ func _get_level_config(level_number: int) -> Dictionary:
 		"title": "Level One",
 		"duration": 30.0,
 		"starting_energy": 900.0,
-		"required_rest": 600.0,
+		"required_rest": 660.0,
 		"closed_eye_alpha": 0.7,
-		"event_times": [7.0, 17.0],
-		"steal_duration": 4.0,
+		"min_event_gap": 4.0,
+		"max_event_gap": 7.0,
+		"max_events": 4,
+		"event_end_buffer": 3.0,
+		"steal_duration": 2.0,
+		"response_window": 1.5,
 		"audio": audio_config,
 		"arrival_text": "Bus Driver: We are arriving at The Business District.",
 		"win_result": "Level One Complete!\nYou protected the laptop and got enough rest.",
@@ -370,29 +419,45 @@ func _apply_current_level_audio() -> void:
 func _reset_level_state() -> void:
 	audio_manager.stop_all()
 	steal_event.reset_event()
+	can_start_level = false
+	start_input_released = false
 	energy = current_level["starting_energy"]
 	rest = 0.0
 	is_resting = false
 	is_rem = false
 	eyes_are_closed = false
-	level_state = LevelState.WAITING_TO_START
+	level_state = LevelState.RUNNING
 	level_elapsed = 0.0
 	next_event_index = 0
+	next_random_event_time = 0.0
 	current_encounter = 0
 	zipper_hint_shown = false
 	thief_hands.steal_duration = current_level["steal_duration"]
+	steal_event.response_window = current_level["response_window"]
+	_apply_steal_event_audio_volume()
 	$HUDlayer/HUD/Pause.disabled = false
 	hud.open_eyes()
 	hud.set_closed_eye_alpha(current_level["closed_eye_alpha"])
 	hud.show_level_intro(current_level["title"])
 	hud.update_level(level_elapsed, current_level["duration"], current_level["required_rest"], MAX_ENERGY)
 	hud.update_energy(energy, false, false)
-	audio_manager.play_intro()
+	_schedule_next_random_event()
+	audio_manager.play_bus_ambience()
+	if audio_manager.has_intro():
+		audio_manager.play_intro()
+	can_start_level = true
+	hud.show_instruction("Hold SPACE to sleep. Release it to wake up.")
+	hud.show_subtitle("%s started. Rest, but listen for the zipper!" % current_level["title"])
+
+
+func _apply_steal_event_audio_volume() -> void:
+	$busScene/StealEvent/WarningSound.volume_db = audio_manager.get_zipper_volume_db(current_level_number)
+	$busScene/StealEvent/CloseSound.volume_db = audio_manager.get_close_zip_volume_db()
 
 
 func _get_current_event_config() -> Dictionary:
 	var events: Array = current_level["events"]
-	var event_index := clampi(current_encounter - 1, 0, events.size() - 1)
+	var event_index := (current_encounter - 1) % events.size()
 	return events[event_index]
 
 
