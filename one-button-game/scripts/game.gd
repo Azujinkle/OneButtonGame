@@ -51,7 +51,6 @@ func _ready() -> void:
 	steal_event.steal_prevented.connect(_on_steal_prevented)
 	steal_event.response_window_started.connect(_on_response_window_started)
 	hud.continue_pressed.connect(_on_continue_pressed)
-	hud.retry_pressed.connect(_on_retry_pressed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -470,9 +469,3 @@ func _on_continue_pressed() -> void:
 		_reset_level_state()
 	else:
 		get_tree().change_scene_to_file("res://scenes/credits.tscn")
-
-
-func _on_retry_pressed() -> void:
-	current_level = _get_level_config(current_level_number)
-	_apply_current_level_audio()
-	_reset_level_state()
