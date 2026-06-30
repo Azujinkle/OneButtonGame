@@ -19,7 +19,7 @@ func _run_onboarding() -> void:
 	# The onboarding is automatic so the game still only uses one gameplay button.
 	# It establishes: the player is tired, the laptop is in the backpack, and thieves matter.
 	_show_alarm_intro()
-	await _show_line("5:00 AM. I barely got any sleep last night...", 3.0)
+	await _show_line("6:00 AM. I barely got any sleep last night...", 3.0)
 	await _show_line("I still need to get to work, so I should sleep on the bus.", 3.0)
 	await _show_line("I just need to make sure nobody steals my laptop.", 3.0)
 
@@ -27,10 +27,10 @@ func _run_onboarding() -> void:
 	await _show_line("Laptop packed.", 1.5)
 
 	_show_bus_intro()
-	await _show_line("Bus Driver: Attention passengers. Welcome aboard.", 3.0)
+	await _show_line("Bus Driver: Attention passengers. ", 3.0)
 	await _show_line("Bus Driver: Next stop, The Business District.", 3.0)
-	await _show_line("Bus Driver: The bus thief only steals while you're asleep.", 4.0)
-	await _show_line("Sleep at your own discretion.", 2.5)
+	await _show_line("Bus Driver: Just to let you know, we are not liable for any theft on this bus. But, The bus thief only steals while you're asleep.", 9.0)
+	await _show_line("Bus Driver: Sleep at your own discretion.", 2.5)
 
 	# Do not switch scenes until the bus onboarding voice line finishes.
 	# Changing scenes destroys this AudioStreamPlayer, which would cut the audio off.
