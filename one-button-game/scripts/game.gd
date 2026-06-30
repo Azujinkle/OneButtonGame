@@ -33,7 +33,7 @@ var current_level: Dictionary
 const MAX_ENERGY := 1800.0
 const AWAKE_ENERGY_PER_SECOND := -60.0
 const REST_ENERGY_PER_SECOND := 90.0
-const REST_THRESHOLD := 0.5 # Seconds required before closed eyes count as rest.
+const REST_THRESHOLD := 1.0 # Seconds required before closed eyes count as rest.
 const REM_THRESHOLD := 600.0
 
 # Called when the node enters the scene tree for the first time.

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dsrek0jqrnj1t" path="res://scripts/title.gd" id="1_4ignj"]
 [ext_resource type="Texture2D" uid="uid://ic0dw01qp6t7" path="res://art/menus/Main_Menu_v2.png" id="2_ah8jo"]
-[ext_resource type="Texture2D" path="res://art/menus/Main-title-final.png" id="3_title_splash"]
 [ext_resource type="Texture2D" uid="uid://4hiip3kdb0xd" path="res://art/menus/Bus-Stop.png" id="2_b3w7a"]
 [ext_resource type="Texture2D" uid="uid://b5y3lardfloov" path="res://art/menus/Play_Idle.png" id="3_4rr2b"]
+[ext_resource type="Texture2D" uid="uid://gc1tbs0parq" path="res://art/menus/Main-title-final.png" id="3_title_splash"]
 [ext_resource type="Texture2D" uid="uid://cxx6khmx7f1k0" path="res://art/menus/Play_Pressed.png" id="4_b3w7a"]
 [ext_resource type="Texture2D" uid="uid://dbcds7bu35dib" path="res://art/menus/Options_Pressed.png" id="4_yql1r"]
 [ext_resource type="Texture2D" uid="uid://dvn43goluqv4y" path="res://art/menus/Play_Hover.png" id="5_ia1n6"]
@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cb7ih3b5ldpgj" path="res://art/menus/Exit_Hover.png" id="14_vjr5h"]
 [ext_resource type="PackedScene" uid="uid://dr81sixhaydn5" path="res://scenes/pause_options.tscn" id="15_kcc3o"]
 [ext_resource type="PackedScene" uid="uid://63ln3dw8h8ne" path="res://scenes/credits.tscn" id="16_6rcc6"]
-[ext_resource type="AudioStream" path="res://art/audio/bus-station_TitleScreen.wav" id="17_title_audio"]
+[ext_resource type="AudioStream" uid="uid://bedf8wrw2j52c" path="res://art/audio/bus-station_TitleScreen.wav" id="17_title_audio"]
 
 [node name="Title" type="Control" unique_id=1861971730]
 process_mode = 1
@@ -41,7 +41,7 @@ texture = ExtResource("2_ah8jo")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="MainTitleSplash" type="TextureRect" parent="."]
+[node name="MainTitleSplash" type="TextureRect" parent="." unique_id=430933391]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,7 +128,7 @@ visible = false
 process_mode = 2
 visible = false
 
-[node name="TitleScreenAudio" type="AudioStreamPlayer" parent="."]
+[node name="TitleScreenAudio" type="AudioStreamPlayer" parent="." unique_id=473214033]
 stream = ExtResource("17_title_audio")
 volume_db = -4.0
 
@@ -137,4 +137,5 @@ volume_db = -4.0
 [connection signal="pressed" from="Menu/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Menu/Exit" to="." method="_on_exit_pressed"]
 [connection signal="visibility_changed" from="PopupLayer/PauseOptions" to="." method="_on_pause"]
+[connection signal="volume_change" from="PopupLayer/PauseOptions" to="." method="_on_volume_change"]
 [connection signal="visibility_changed" from="PopupLayer/Credits" to="." method="_on_pause"]
