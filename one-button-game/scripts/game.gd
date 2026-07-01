@@ -140,6 +140,8 @@ func lose_from_steal() -> void:
 	audio_manager.stop_all()
 	level_state = LevelState.LOST_STOLEN
 	$HUDlayer/HUD/Pause.disabled = true
+	pause.hide()
+	get_tree().paused = false
 	hud.show_result(current_level["stolen_result"], false)
 
 
@@ -229,6 +231,9 @@ func _finish_level() -> void:
 		level_state = LevelState.LOST_NOT_RESTED
 
 	await audio_manager.wait_for_arrival_finished()
+	
+	pause.hide()
+	get_tree().paused = false
 
 	if player_won:
 		audio_manager.play_win()
