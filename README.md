@@ -10,10 +10,10 @@
 ### MacOs
 - Download the MacOs final build zip folder.
 - Extract all contents and click on the Busnapper Apple Disk Image file to launch the game.
-- Note: Mac may prompt a message ("Busnapper" Not Opened:  Apple could not verify "Busnapper" is free of malware that may harm your Mac or comprise your privacy.) Go to the "Privacy & Security" setting, then scroll down to find "Busnapper". Click "Open Anyway" to launch the game.
+- Note: Mac may prompt a message ("Busnapper" Not Opened:  Apple could not verify "Busnapper" is free of malware that may harm your Mac or comprise your privacy.). Go to the "Privacy & Security" setting, then scroll down to find "Busnapper". Click "Open Anyway" to launch the game.
 
 ## Core Mechanic
-Busnapper is a casual survival + audio puzzle game with a one-button core mechanic of sleeping and awaking. The objective is to complete each level having rested enough on the bus while preventing all thieves from stealing the laptop.
+Busnapper is a casual survival + audio puzzle game with a one-button core mechanic of sleeping and waking. The objective is to complete each level having rested enough on the bus while preventing all thieves from stealing the laptop.
 
 ## Build Information
 
